@@ -1,0 +1,73 @@
+{
+  "patterns": [
+    {
+      "id": "GAS_SSTORE",
+      "name": "Redundant SSTORE",
+      "description": "Writing same value to storage wastes gas",
+      "estimatedSaving": 5000,
+      "detection": "Bytecode: SSTORE with same value already at slot",
+      "recommendation": "Check current value before writing"
+    },
+    {
+      "id": "GAS_SLOAD_CACHE",
+      "name": "Repeated SLOAD",
+      "description": "Same storage slot read multiple times without caching",
+      "estimatedSaving": 2100,
+      "detection": "Bytecode: Multiple SLOAD to same slot within 10 opcodes",
+      "recommendation": "Cache storage value in memory variable"
+    },
+    {
+      "id": "GAS_LOOP_STORAGE",
+      "name": "Storage Access in Loop",
+      "description": "SLOAD/SSTORE inside loop body",
+      "estimatedSaving": 10000,
+      "detection": "Bytecode: SLOAD/SSTORE between JUMPDEST and JUMP sequence",
+      "recommendation": "Move storage access outside loop or use memory"
+    },
+    {
+      "id": "GAS_PACKING",
+      "name": "Unpacked Storage Variables",
+      "description": "Multiple small variables occupy separate slots instead of being packed",
+      "estimatedSaving": 40000,
+      "detection": "Source: Multiple uint8/uint16/bool declared separately",
+      "recommendation": "Pack variables into single 256-bit slot"
+    },
+    {
+      "id": "GAS_STRING",
+      "name": "String Concatenation",
+      "description": "String concatenation with + operator creates new string each time",
+      "estimatedSaving": 3000,
+      "detection": "Source: string.concat or abi.encodePacked in loop",
+      "recommendation": "Use bytes.concat or pre-allocate"
+    },
+    {
+      "id": "GAS_CALLEESAVE",
+      "name": "External Call Overhead",
+      "description": "Multiple external calls to same contract can be batched",
+      "estimatedSaving": 2600,
+      "detection": "Bytecode: Multiple CALL with same target address",
+      "recommendation": "Batch calls into single multicall"
+    },
+    {
+      "id": "GAS_ERROR_STRING",
+      "name": "Long Error Strings",
+      "description": "require() with long error strings wastes deployment gas",
+      "estimatedSaving": 500,
+      "detection": "Source: require(condition, 'long error message...')",
+      "recommendation": "Use custom errors (Solidity 0.8.4+) instead of strings"
+    },
+    {
+      "id": "GAS_TRANSIENT",
+      "name": "Transient Storage Opportunity",
+      "description": "Reentrancy locks could use TSTORE/TLOAD (EIP-1153) for gas savings",
+      "estimatedSaving": 4200,
+      "detection": "Source: ReentrancyGuard pattern with SSTORE/SLOAD for lock",
+      "recommendation": "Use TSTORE/TLOAD for temporary lock values"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "totalPatterns": 8,
+    "lastUpdated": "2026-05-18T00:00:00Z"
+  }
+}

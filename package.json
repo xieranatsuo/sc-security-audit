@@ -1,0 +1,38 @@
+{
+  "name": "smart-contract-audit-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest --coverage",
+    "test:e2e": "playwright test",
+    "audit:contracts": "python3 scanners/python/cli/main.py --target ./contracts --output ./reports",
+    "scan:go": "cd scanners/go && go run cmd/scanner/main.go",
+    "db:migrate": "bash scripts/db-migrate.sh",
+    "security:check": "bash scripts/security-check.sh",
+    "deploy:check": "bash scripts/deploy-check.sh",
+    "risk:dashboard": "python3 scripts/risk-dashboard.py"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.12.0",
+    "clsx": "^2.1.0",
+    "swr": "^2.2.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0",
+    "@tailwindcss/forms": "^0.5.0",
+    "jest": "^29.7.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@playwright/test": "^1.40.0"
+  }
+}

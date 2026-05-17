@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "regions": ["sin1"],
+  "env": {
+    "ETHERSCAN_API_KEY": "@etherscan-api-key",
+    "ETHEREUM_RPC_URL": "https://eth.llamarpc.com",
+    "BSC_RPC_URL": "https://bsc-dataseed1.binance.org",
+    "POLYGON_RPC_URL": "https://polygon-rpc.com",
+    "ARBITRUM_RPC_URL": "https://arb1.arbitrum.io/rpc"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/v1/:path*", "destination": "/api/:path*" }
+  ]
+}

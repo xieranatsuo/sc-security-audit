@@ -1,0 +1,99 @@
+{
+  "contracts": [
+    {
+      "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "Wrapped Ether",
+      "type": "ERC-20",
+      "riskLevel": "low",
+      "auditCount": 150
+    },
+    {
+      "address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "Uniswap V2 Router02",
+      "type": "DEX Router",
+      "riskLevel": "low",
+      "auditCount": 200
+    },
+    {
+      "address": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "Uniswap V3 SwapRouter",
+      "type": "DEX Router",
+      "riskLevel": "low",
+      "auditCount": 180
+    },
+    {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "USD Coin",
+      "type": "ERC-20",
+      "riskLevel": "low",
+      "auditCount": 120
+    },
+    {
+      "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "Tether USD",
+      "type": "ERC-20",
+      "riskLevel": "medium",
+      "auditCount": 100
+    },
+    {
+      "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "Uniswap",
+      "type": "Governance Token",
+      "riskLevel": "low",
+      "auditCount": 90
+    },
+    {
+      "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+      "chain": "ethereum",
+      "chainId": 1,
+      "name": "Aave",
+      "type": "Governance Token",
+      "riskLevel": "low",
+      "auditCount": 85
+    },
+    {
+      "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+      "chain": "bsc",
+      "chainId": 56,
+      "name": "Ethereum Token",
+      "type": "ERC-20",
+      "riskLevel": "low",
+      "auditCount": 60
+    },
+    {
+      "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "chain": "bsc",
+      "chainId": 56,
+      "name": "PancakeSwap Token",
+      "type": "DEX Token",
+      "riskLevel": "low",
+      "auditCount": 75
+    },
+    {
+      "address": "0x1EDd7aC31e5A7Ba09480d4B0bBcF8470D77E1a7B",
+      "chain": "polygon",
+      "chainId": 137,
+      "name": "Uniswap V3 (Polygon)",
+      "type": "DEX Router",
+      "riskLevel": "low",
+      "auditCount": 50
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-05-18T00:00:00Z",
+    "totalContracts": 10
+  }
+}
