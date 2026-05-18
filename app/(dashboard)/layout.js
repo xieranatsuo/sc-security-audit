@@ -1,4 +1,5 @@
 import { Sidebar } from '@/components/layout/Sidebar';
+import { Header } from '@/components/layout/Header';
 
 export const metadata = {
   title: 'Dashboard - Smart Contract Audit Platform',
@@ -6,13 +7,16 @@ export const metadata = {
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-surface-0">
       <Sidebar />
-      <main className="flex-1 ml-64 p-8">
-        <div className="max-w-7xl mx-auto">
-          {children}
-        </div>
-      </main>
+      <div className="flex-1 ml-64">
+        <Header />
+        <main className="p-6">
+          <div className="max-w-[1400px] mx-auto">
+            {children}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
