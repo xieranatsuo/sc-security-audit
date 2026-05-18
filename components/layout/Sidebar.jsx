@@ -185,8 +185,8 @@ export function Sidebar() {
           {!sidebarCollapsed && (
             <>
               <div className="min-w-0 flex-1">
-                <p className="text-white text-sm font-medium truncate">Garok</p>
-                <p className="text-gray-500 text-[10px] truncate">Pro Plan · 47 audits</p>
+                <p className="text-white text-sm font-medium truncate">Admin</p>
+                <p className="text-gray-500 text-[10px] truncate">Enterprise · Unlimited</p>
               </div>
               <div className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-emerald-400 rounded-full" />
