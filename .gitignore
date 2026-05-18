@@ -31,7 +31,7 @@ venv/
 .venv/
 
 # Go
-scanner
+/scanner
 *.exe
 *.test
 *.out
