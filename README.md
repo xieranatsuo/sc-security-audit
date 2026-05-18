@@ -2,7 +2,7 @@
 
 Production-grade multi-chain smart contract security analysis platform.
 
-**Live Demo:** https://smart-contract-audit-platform.vercel.app
+**Live Demo:** https://sc-security-audit.vercel.app
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-yellow)
@@ -11,6 +11,13 @@ Production-grade multi-chain smart contract security analysis platform.
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38bdf8)
 ![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+## Screenshots
+
+![Overview](docs/screenshots/01-overview.png)
+![Audit Results](docs/screenshots/02-audit-results.png)
+![Vulnerability Detail](docs/screenshots/03-vulnerability-detail.png)
+![Risk Analysis](docs/screenshots/04-risk-analysis.png)
 
 ## Overview
 

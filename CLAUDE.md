@@ -7,7 +7,7 @@ Multi-chain smart contract security audit platform.
 1. JavaScript only — no TypeScript
 2. All API routes use envelope format from lib/api/envelope.js
 3. Risk weights must sum to 1.0 (validated at runtime)
-4. Never use Math.random() in API routes for security-sensitive operations
+4. Use crypto.randomUUID() for request IDs — never Math.random()
 5. All blockchain RPCs are public endpoints
 6. Etherscan V2 uses single API key for all chains (chainid parameter)
 
@@ -18,7 +18,7 @@ Multi-chain smart contract security audit platform.
 import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
 
 export async function GET(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  const requestId = `req_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`;
   try {
     // ... logic ...
     return NextResponse.json(successEnvelope(data, { requestId }));
