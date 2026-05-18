@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetcher';
 import { AuditProgress } from '@/components/audit/AuditProgress';
@@ -17,7 +16,7 @@ const CHAINS = [
 
 const DEMO_RESULT = {
   auditId: 'demo_audit_001',
-  contractAddress: '[WALLET_ADDR_1]',
+  contractAddress: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
   chainId: 1,
   chainName: 'Ethereum',
   contractName: 'Uniswap V2 Router02',
@@ -229,11 +228,13 @@ export default function AuditPageContent() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data: stats } = useSWR('/api/audit/stats', fetcher, { revalidateOnFocus: false });
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (searchParams.get('demo') === 'true' && !result) setResult(DEMO_RESULT);
-  }, [searchParams, result]);
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('demo') === 'true' && !result) setResult(DEMO_RESULT);
+    } catch {}
+  }, []);
 
   const handleAudit = async (e) => {
     e.preventDefault();

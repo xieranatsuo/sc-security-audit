@@ -64,11 +64,11 @@ function deterministicRiskChange(address) {
 
 export default function MonitorPage() {
   const [monitoredAddresses, setMonitoredAddresses] = useState([]);
-  const [mounted, setMounted] = useState(false);
+  
 
   useEffect(() => {
     setMonitoredAddresses(getMonitored());
-    setMounted(true);
+    
   }, []);
 
   const toggleMonitor = (address) => {
@@ -96,15 +96,7 @@ export default function MonitorPage() {
   const proxyAlerts = DEMO_ALERTS.filter(a => a.type === 'info' || a.title.includes('Upgrade'));
   const adminAlerts = DEMO_ALERTS.filter(a => a.title.includes('Admin') || a.title.includes('Ownership') || a.type === 'warning');
 
-  if (!mounted) {
-    return (
-      <div className="space-y-6">
-        <div className="card text-center py-16">
-          <p className="text-gray-500">Loading monitor...</p>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="space-y-6">

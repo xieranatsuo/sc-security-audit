@@ -57,7 +57,7 @@ function getSeverityColor(severity) {
 export default function AlertRulesPage() {
   const [rules, setRules] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  
   const [form, setForm] = useState({
     label: '',
     condition: CONDITION_TYPES[0].value,
@@ -68,14 +68,13 @@ export default function AlertRulesPage() {
   useEffect(() => {
     const stored = loadRules();
     setRules(stored || DEFAULT_RULES);
-    setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (mounted && rules.length > 0) {
-      saveRules(rules);
+    if (rules.length > 0) {
+      try { saveRules(rules); } catch {}
     }
-  }, [rules, mounted]);
+  }, [rules]);
 
   const toggleRule = (id) => {
     setRules(prev => prev.map(r => r.id === id ? { ...r, enabled: !r.enabled } : r));
@@ -103,15 +102,7 @@ export default function AlertRulesPage() {
 
   const selectedCondition = CONDITION_TYPES.find(c => c.value === form.condition);
 
-  if (!mounted) {
-    return (
-      <div className="space-y-6">
-        <div className="card text-center py-16">
-          <p className="text-gray-500">Loading alert rules...</p>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="space-y-6">
