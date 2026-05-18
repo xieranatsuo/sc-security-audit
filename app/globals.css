@@ -13,10 +13,10 @@
   --surface-3:    #222225;
 
   /* Accent */
-  --accent:       #5e9eff;
-  --accent-hover: #7ab3ff;
-  --accent-muted: rgba(94, 158, 255, 0.12);
-  --accent-ring:  rgba(94, 158, 255, 0.25);
+  --accent:       #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-muted: rgba(129, 140, 248, 0.12);
+  --accent-ring:  rgba(129, 140, 248, 0.25);
 
   /* Text */
   --text-primary:   #fafafa;
@@ -27,7 +27,7 @@
   /* Borders */
   --border:        rgba(255, 255, 255, 0.06);
   --border-hover:  rgba(255, 255, 255, 0.10);
-  --border-active: rgba(94, 158, 255, 0.30);
+  --border-active: rgba(129, 140, 248, 0.30);
 
   /* Status */
   --success:       #34d399;
@@ -60,7 +60,7 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(94, 158, 255, 0.08);
+  --shadow-glow: 0 0 20px rgba(129, 140, 248, 0.08);
 
   /* Transitions */
   --transition-fast: 0.15s ease;
@@ -178,7 +178,7 @@
   .btn-primary:hover {
     background: var(--accent-hover);
     border-color: var(--accent-hover);
-    box-shadow: 0 0 16px rgba(94, 158, 255, 0.15);
+    box-shadow: 0 0 16px rgba(129, 140, 248, 0.15);
   }
   .btn-secondary {
     background: var(--surface-2);

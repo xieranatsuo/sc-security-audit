@@ -4,12 +4,10 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { validatePagination } from '@/lib/validators';
 
 export async function GET(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { searchParams } = new URL(request.url);
     const pageValidation = validatePagination({
@@ -19,7 +17,7 @@ export async function GET(request) {
 
     if (!pageValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, pageValidation.error, null, { requestId }),
+        errorEnvelope(pageValidation.error, 'internal'),
         { status: 400 }
       );
     }
@@ -32,11 +30,11 @@ export async function GET(request) {
         total: 0,
         totalPages: 0,
       },
-    }, { requestId }));
+    }, 'internal', 'live'));
   } catch (error) {
     console.error('[audit/history]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'internal'),
       { status: 500 }
     );
   }

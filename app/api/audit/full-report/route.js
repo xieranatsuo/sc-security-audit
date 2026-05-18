@@ -4,14 +4,12 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { validateAddress, validateChain } from '@/lib/validators';
 import { getContractSource } from '@/lib/etherscan';
 import { getCode } from '@/lib/rpc';
 
 export async function GET(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { searchParams } = new URL(request.url);
     const address = searchParams.get('address');
@@ -20,7 +18,7 @@ export async function GET(request) {
     const addressValidation = validateAddress(address);
     if (!addressValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, addressValidation.error, null, { requestId }),
+        errorEnvelope(addressValidation.error, 'etherscan-v2 + publicnode'),
         { status: 400 }
       );
     }
@@ -28,7 +26,7 @@ export async function GET(request) {
     const chainValidation = validateChain(chain);
     if (!chainValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, chainValidation.error, null, { requestId }),
+        errorEnvelope(chainValidation.error, 'etherscan-v2 + publicnode'),
         { status: 400 }
       );
     }
@@ -39,7 +37,7 @@ export async function GET(request) {
       contractSource = await getContractSource(chainValidation.chainId, addressValidation.normalized);
     } catch (error) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.CONTRACT_NOT_VERIFIED, error.message, null, { requestId }),
+        errorEnvelope(error.message, 'etherscan-v2 + publicnode'),
         { status: 404 }
       );
     }
@@ -81,11 +79,11 @@ export async function GET(request) {
       riskScore: { score: 0, label: 'INFORMATIONAL' },
     };
 
-    return NextResponse.json(successEnvelope(report, { requestId }));
+    return NextResponse.json(successEnvelope(report, 'etherscan-v2 + publicnode', 'live'));
   } catch (error) {
     console.error('[audit/full-report]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'etherscan-v2 + publicnode'),
       { status: 500 }
     );
   }

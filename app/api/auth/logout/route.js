@@ -11,7 +11,7 @@ export async function POST(request) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
   if (token) deleteSession(token);
 
-  const response = NextResponse.json(successEnvelope({ loggedOut: true }));
+  const response = NextResponse.json(successEnvelope({ loggedOut: true }, 'internal', 'live'));
   response.cookies.delete(COOKIE_NAME);
   return response;
 }

@@ -34,5 +34,17 @@
     "@testing-library/jest-dom": "^6.0.0",
     "jest-environment-jsdom": "^29.7.0",
     "@playwright/test": "^1.40.0"
+  },
+  "keywords": [
+    "smart-contract",
+    "security-audit",
+    "vulnerability-scanner",
+    "blockchain",
+    "solidity",
+    "evm",
+    "defi"
+  ],
+  "engines": {
+    "node": ">=18"
   }
 }

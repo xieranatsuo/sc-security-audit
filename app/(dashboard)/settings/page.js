@@ -103,7 +103,7 @@ export default function SettingsPage() {
         <h2 className="text-sm font-semibold text-white mb-4">Risk Threshold</h2>
         <p className="text-gray-500 text-xs mb-3">Alert when contract risk score exceeds this value</p>
         <div className="flex items-center gap-4">
-          <input type="range" min={0} max={100} value={settings.riskThreshold} onChange={e => update('riskThreshold', parseInt(e.target.value))} className="flex-1 accent-blue-500" />
+          <input type="range" min={0} max={100} value={settings.riskThreshold} onChange={e => update('riskThreshold', parseInt(e.target.value))} className="flex-1 accent-indigo-500" />
           <span className={`text-lg font-bold w-12 text-right ${settings.riskThreshold > 70 ? 'text-red-400' : settings.riskThreshold > 40 ? 'text-yellow-400' : 'text-emerald-400'}`}>{settings.riskThreshold}</span>
         </div>
       </div>
@@ -116,11 +116,11 @@ export default function SettingsPage() {
             { key: 'critical', label: 'Critical findings', color: 'text-red-400' },
             { key: 'high', label: 'High severity findings', color: 'text-orange-400' },
             { key: 'medium', label: 'Medium severity findings', color: 'text-yellow-400' },
-            { key: 'low', label: 'Low severity findings', color: 'text-blue-400' },
+            { key: 'low', label: 'Low severity findings', color: 'text-indigo-400' },
           ].map(item => (
             <label key={item.key} className="flex items-center justify-between py-2 cursor-pointer">
               <span className={`text-sm ${item.color}`}>{item.label}</span>
-              <button onClick={() => updateNotif(item.key, !settings.notifications[item.key])} className={`w-10 h-6 rounded-full transition-colors ${settings.notifications[item.key] ? 'bg-blue-500' : 'bg-surface-3'}`}>
+              <button onClick={() => updateNotif(item.key, !settings.notifications[item.key])} className={`w-10 h-6 rounded-full transition-colors ${settings.notifications[item.key] ? 'bg-indigo-500' : 'bg-surface-3'}`}>
                 <div className={`w-4 h-4 rounded-full bg-white transition-transform mx-1 ${settings.notifications[item.key] ? 'translate-x-4' : ''}`} />
               </button>
             </label>
@@ -131,10 +131,10 @@ export default function SettingsPage() {
       {/* Data Mode */}
       <div className="card">
         <h2 className="text-sm font-semibold text-white mb-4">Data Mode</h2>
-        <p className="text-gray-500 text-xs mb-3">Switch between live API data and demo data for testing</p>
+        <p className="text-gray-500 text-xs mb-3">Switch between live API data and reference data for testing</p>
         <div className="flex gap-2">
           {['live', 'demo'].map(mode => (
-            <button key={mode} onClick={() => update('dataMode', mode)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${settings.dataMode === mode ? 'bg-blue-500 text-white' : 'bg-surface-2 text-gray-400 hover:text-white'}`}>
+            <button key={mode} onClick={() => update('dataMode', mode)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${settings.dataMode === mode ? 'bg-indigo-500 text-white' : 'bg-surface-2 text-gray-400 hover:text-white'}`}>
               {mode === 'live' ? '🟢 Live' : '🔵 Demo'}
             </button>
           ))}

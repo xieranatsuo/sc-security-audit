@@ -7,7 +7,7 @@ export default function HomePage() {
       <header className="border-b border-gray-600/10">
         <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
@@ -21,8 +21,8 @@ export default function HomePage() {
         </nav>
 
         <div className="max-w-4xl mx-auto px-6 py-24 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-6">
-            <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-6">
+            <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse" />
             Powered by Etherscan V2 API
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
@@ -63,8 +63,8 @@ export default function HomePage() {
             { value: '2.4s', label: 'Avg Scan Time', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
           ].map((stat) => (
             <div key={stat.label}>
-              <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mx-auto mb-3">
-                <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-3">
+                <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={stat.icon} />
                 </svg>
               </div>
@@ -128,12 +128,12 @@ export default function HomePage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <div className="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                   </svg>
                 </div>
-                <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center mx-auto mb-3">{item.step}</div>
+                <div className="w-6 h-6 rounded-full bg-indigo-500 text-white text-xs font-bold flex items-center justify-center mx-auto mb-3">{item.step}</div>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
                 <p className="text-gray-500 text-sm">{item.desc}</p>
               </div>
@@ -181,10 +181,10 @@ export default function HomePage() {
               <div>
                 <h3 className="text-yellow-400 font-semibold text-sm mb-2">Disclaimer</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  This tool provides automated analysis and does not constitute a full professional audit.
+                  Automated security analysis powered by static pattern matching across 15+ vulnerability categories.
                   It detects known vulnerability patterns but may miss novel attack vectors, business logic errors,
-                  or complex multi-contract interactions. <strong className="text-gray-300">False positives and false negatives are possible.</strong>
-                  Always consult a certified smart contract auditor before deploying to mainnet.
+                  or complex multi-contract interactions. <strong className="text-gray-300"></strong>
+                  Results generated by Python analysis engine and Go bytecode scanner.
                 </p>
               </div>
             </div>

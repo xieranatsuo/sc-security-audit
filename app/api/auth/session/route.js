@@ -11,14 +11,14 @@ export async function GET(request) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
 
   if (!token) {
-    return NextResponse.json(successEnvelope({ user: null }));
+    return NextResponse.json(successEnvelope({ user: null }, 'internal', 'live'));
   }
 
   const session = getSession(token);
   if (!session) {
-    return NextResponse.json(successEnvelope({ user: null }));
+    return NextResponse.json(successEnvelope({ user: null }, 'internal', 'live'));
   }
 
   const user = getUserById(session.userId);
-  return NextResponse.json(successEnvelope({ user }));
+  return NextResponse.json(successEnvelope({ user }, 'internal', 'live'));
 }

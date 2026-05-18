@@ -37,7 +37,7 @@ export function AuditProgress({ isLoading, scanLog = [], stepStatuses = [], onRe
       timers.push(setTimeout(() => {
         setCurrentStep(i);
       }, delay));
-      delay += 500 + Math.random() * 400;
+      delay += 500 + 200;
     }
 
     return () => timers.forEach(clearTimeout);
@@ -70,7 +70,7 @@ export function AuditProgress({ isLoading, scanLog = [], stepStatuses = [], onRe
         );
       case 'active':
         return (
-          <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
+          <div className="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center shrink-0">
             <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
           </div>
         );
@@ -97,7 +97,7 @@ export function AuditProgress({ isLoading, scanLog = [], stepStatuses = [], onRe
       <div className="card">
         <div className="flex items-center gap-3 mb-6">
           {isLoading ? (
-            <div className="w-8 h-8 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
           ) : hasError ? (
             <div className="w-8 h-8 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
               <svg className="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -124,7 +124,7 @@ export function AuditProgress({ isLoading, scanLog = [], stepStatuses = [], onRe
         {/* Progress Bar */}
         <div className="h-1.5 bg-surface-3 rounded-full mb-6 overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all duration-500 ${hasError ? 'bg-gradient-to-r from-red-500 to-red-400' : 'bg-gradient-to-r from-blue-500 to-blue-400'}`}
+            className={`h-full rounded-full transition-all duration-500 ${hasError ? 'bg-gradient-to-r from-red-500 to-red-400' : 'bg-gradient-to-r from-indigo-500 to-indigo-400'}`}
             style={{ width: `${progressPct}%` }}
           />
         </div>
@@ -134,7 +134,7 @@ export function AuditProgress({ isLoading, scanLog = [], stepStatuses = [], onRe
           {STEPS.map((step, i) => {
             const status = getStepStatus(i);
             return (
-              <div key={i} className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-all ${status === 'active' ? 'bg-blue-500/5 border border-blue-500/10' : status === 'error' ? 'bg-red-500/5 border border-red-500/10' : ''}`}>
+              <div key={i} className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-all ${status === 'active' ? 'bg-indigo-500/5 border border-indigo-500/10' : status === 'error' ? 'bg-red-500/5 border border-red-500/10' : ''}`}>
                 {getStepIcon(i)}
                 <div className="flex-1 min-w-0">
                   <p className={`text-sm ${status === 'complete' ? 'text-gray-500 line-through' : status === 'active' ? 'text-white' : status === 'error' ? 'text-red-400' : 'text-gray-600'}`}>

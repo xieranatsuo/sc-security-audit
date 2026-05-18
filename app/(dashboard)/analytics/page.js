@@ -122,11 +122,11 @@ const KPI_DATA = {
 
 /* ─── Helpers ──────────────────────────────────────────── */
 const sevColor = (sev) => {
-  const map = { critical: 'text-red-400', high: 'text-orange-400', medium: 'text-yellow-400', low: 'text-green-400', informational: 'text-blue-400' };
+  const map = { critical: 'text-red-400', high: 'text-orange-400', medium: 'text-yellow-400', low: 'text-green-400', informational: 'text-indigo-400' };
   return map[sev] || 'text-gray-400';
 };
 const sevBg = (sev) => {
-  const map = { critical: 'bg-red-500', high: 'bg-orange-500', medium: 'bg-yellow-500', low: 'bg-green-500', informational: 'bg-blue-500' };
+  const map = { critical: 'bg-red-500', high: 'bg-orange-500', medium: 'bg-yellow-500', low: 'bg-green-500', informational: 'bg-indigo-500' };
   return map[sev] || 'bg-gray-500';
 };
 const sevBadge = (sev) => {
@@ -135,7 +135,7 @@ const sevBadge = (sev) => {
     high: 'bg-orange-500/15 text-orange-400',
     medium: 'bg-yellow-500/15 text-yellow-400',
     low: 'bg-green-500/15 text-green-400',
-    informational: 'bg-blue-500/15 text-blue-400',
+    informational: 'bg-indigo-500/15 text-indigo-400',
   };
   return map[sev] || 'bg-gray-500/15 text-gray-400';
 };
@@ -197,7 +197,7 @@ export default function AnalyticsPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-white">Audits Over Time</h3>
             <div className="flex items-center gap-4 text-xs">
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-500" /> Audits</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-indigo-500" /> Audits</span>
               <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Findings</span>
             </div>
           </div>
@@ -205,8 +205,8 @@ export default function AnalyticsPage() {
             {auditData.map((d, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <div className="w-full flex gap-0.5 items-end" style={{ height: '180px' }}>
-                  <div className="flex-1 bg-blue-500/20 rounded-t relative overflow-hidden" style={{ height: `${(d.audits / maxAudits) * 100}%` }}>
-                    <div className="absolute bottom-0 w-full bg-blue-500 rounded-t" style={{ height: '100%' }} />
+                  <div className="flex-1 bg-indigo-500/20 rounded-t relative overflow-hidden" style={{ height: `${(d.audits / maxAudits) * 100}%` }}>
+                    <div className="absolute bottom-0 w-full bg-indigo-500 rounded-t" style={{ height: '100%' }} />
                   </div>
                   <div className="flex-1 bg-emerald-500/20 rounded-t relative overflow-hidden" style={{ height: `${(d.findings / maxFindings) * 100}%` }}>
                     <div className="absolute bottom-0 w-full bg-emerald-500/60 rounded-t" style={{ height: '100%' }} />
@@ -304,7 +304,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-1.5 bg-surface-3 rounded-full overflow-hidden">
-                    <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500" style={{ width: `${v.pct}%` }} />
+                    <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500" style={{ width: `${v.pct}%` }} />
                   </div>
                   <span className="text-xs text-gray-500 font-mono w-10 text-right">{v.count}</span>
                 </div>

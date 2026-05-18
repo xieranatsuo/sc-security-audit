@@ -6,17 +6,17 @@ import Link from 'next/link';
 const ALERT_RULES_KEY = 'alert_rules';
 
 const SEVERITY_OPTIONS = [
-  { value: 'low', label: 'Low', color: 'bg-blue-500/15 text-blue-400' },
+  { value: 'low', label: 'Low', color: 'bg-indigo-500/15 text-indigo-400' },
   { value: 'medium', label: 'Medium', color: 'bg-yellow-500/15 text-yellow-400' },
   { value: 'high', label: 'High', color: 'bg-orange-500/15 text-orange-400' },
   { value: 'critical', label: 'Critical', color: 'bg-red-500/15 text-red-400' },
 ];
 
 const CONDITION_TYPES = [
-  { value: 'risk_score_above', label: 'Risk score above threshold', needsThreshold: true, thresholdLabel: 'Risk Score', thresholdPlaceholder: 'e.g. 70' },
+  { value: 'risk_score_above', label: 'Risk score above threshold', needsThreshold: true, thresholdLabel: 'Risk Score', thresholdHint: 'e.g. 70' },
   { value: 'proxy_implementation_change', label: 'Proxy implementation changes', needsThreshold: false },
   { value: 'admin_change', label: 'Admin/ownership changes', needsThreshold: false },
-  { value: 'large_transfer', label: 'Large transfer above threshold', needsThreshold: true, thresholdLabel: 'Amount (ETH)', thresholdPlaceholder: 'e.g. 100' },
+  { value: 'large_transfer', label: 'Large transfer above threshold', needsThreshold: true, thresholdLabel: 'Amount (ETH)', thresholdHint: 'e.g. 100' },
   { value: 'critical_finding', label: 'New critical finding detected', needsThreshold: false },
 ];
 
@@ -167,7 +167,7 @@ export default function AlertRulesPage() {
                   type="number"
                   value={form.threshold}
                   onChange={(e) => setForm(f => ({ ...f, threshold: e.target.value }))}
-                  placeholder={selectedCondition.thresholdPlaceholder}
+                  placeholder={selectedCondition.thresholdHint}
                   className="input text-sm"
                 />
               </div>
@@ -217,7 +217,7 @@ export default function AlertRulesPage() {
               {/* Toggle */}
               <button
                 onClick={() => toggleRule(rule.id)}
-                className={`w-10 h-6 rounded-full relative flex-shrink-0 transition-colors ${rule.enabled ? 'bg-blue-500' : 'bg-gray-600'}`}
+                className={`w-10 h-6 rounded-full relative flex-shrink-0 transition-colors ${rule.enabled ? 'bg-indigo-500' : 'bg-gray-600'}`}
               >
                 <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${rule.enabled ? 'left-[18px]' : 'left-0.5'}`} />
               </button>

@@ -7,22 +7,20 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { config, validateRiskWeights } from '@/lib/config';
 
 // Validate weights at startup
 validateRiskWeights();
 
 export async function POST(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const body = await request.json();
     const { findings } = body;
 
     if (!findings || !Array.isArray(findings) || findings.length === 0) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, 'findings array is required and must not be empty', null, { requestId }),
+        errorEnvelope('findings array is required and must not be empty', 'internal'),
         { status: 400 }
       );
     }
@@ -74,11 +72,11 @@ export async function POST(request) {
         maxScore,
         count: results.length,
       },
-    }, { requestId }));
+    }, 'internal', 'live'));
   } catch (error) {
     console.error('[audit/risk-score]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'internal'),
       { status: 500 }
     );
   }

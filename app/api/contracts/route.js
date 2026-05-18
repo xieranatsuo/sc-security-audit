@@ -11,8 +11,6 @@ import { validateChain, validatePagination } from '@/lib/validators';
 const contractRegistry = new Map();
 
 export async function GET(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { searchParams } = new URL(request.url);
     const chain = searchParams.get('chain');
@@ -23,7 +21,7 @@ export async function GET(request) {
 
     if (!pageValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, pageValidation.error, null, { requestId }),
+        errorEnvelope(pageValidation.error, 'internal'),
         { status: 400 }
       );
     }
@@ -33,7 +31,7 @@ export async function GET(request) {
       const chainValidation = validateChain(chain);
       if (!chainValidation.valid) {
         return NextResponse.json(
-          errorEnvelope(ErrorCodes.VALIDATION_ERROR, chainValidation.error, null, { requestId }),
+          errorEnvelope(chainValidation.error, 'internal'),
           { status: 400 }
         );
       }
@@ -63,11 +61,11 @@ export async function GET(request) {
         total: contracts.length,
         totalPages: Math.ceil(contracts.length / limit),
       },
-    }, { requestId }));
+    }, 'internal', 'live'));
   } catch (error) {
     console.error('[contracts]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'internal'),
       { status: 500 }
     );
   }
@@ -78,15 +76,13 @@ export async function GET(request) {
  * Register a contract in the registry after audit.
  */
 export async function POST(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const body = await request.json();
     const { address, chainId, chainName, contractName, auditId, riskScore } = body;
 
     if (!address || !chainId) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, 'address and chainId are required', null, { requestId }),
+        errorEnvelope('address and chainId are required', 'internal'),
         { status: 400 }
       );
     }
@@ -108,11 +104,11 @@ export async function POST(request) {
 
     contractRegistry.set(key, contract);
 
-    return NextResponse.json(successEnvelope(contract, { requestId }));
+    return NextResponse.json(successEnvelope(contract, 'internal', 'live'));
   } catch (error) {
     console.error('[contracts POST]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'internal'),
       { status: 500 }
     );
   }

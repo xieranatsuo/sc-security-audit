@@ -7,8 +7,6 @@ import { NextResponse } from 'next/server';
 import { successEnvelope } from '@/lib/api/envelope';
 
 export async function GET() {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   return NextResponse.json(successEnvelope({
     totalAudits: 0,
     totalContracts: 0,
@@ -29,5 +27,5 @@ export async function GET() {
     avgRiskScore: 0,
     avgFindingsPerAudit: 0,
     lastAuditDate: null,
-  }, { requestId }));
+  }, 'internal', 'live'));
 }

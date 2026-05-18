@@ -2,13 +2,13 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { DEMO_CONTRACTS } from '@/lib/mock-data';
+import { DEMO_CONTRACTS } from '@/lib/reference-data';
 
 const CHAINS = ['all', 'ethereum', 'bsc', 'polygon', 'arbitrum'];
 const TYPES = ['all', 'DEX', 'Token', 'Lending', 'NFT', 'Proxy', 'Multisig', 'Staking'];
 
 const TYPE_CONFIG = {
-  DEX:     { color: 'bg-blue-500/15 text-blue-400',   icon: '⇄' },
+  DEX:     { color: 'bg-indigo-500/15 text-indigo-400',   icon: '⇄' },
   Token:   { color: 'bg-green-500/15 text-green-400',  icon: '◎' },
   Lending: { color: 'bg-purple-500/15 text-purple-400', icon: '%' },
   NFT:     { color: 'bg-pink-500/15 text-pink-400',    icon: '♦' },
@@ -33,7 +33,7 @@ function getRiskColor(score) {
   if (score >= 70) return 'text-red-400 bg-red-500/15';
   if (score >= 40) return 'text-orange-400 bg-orange-500/15';
   if (score >= 20) return 'text-yellow-400 bg-yellow-500/15';
-  return 'text-blue-400 bg-blue-500/15';
+  return 'text-indigo-400 bg-indigo-500/15';
 }
 
 function getRiskLabel(score) {

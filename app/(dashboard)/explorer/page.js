@@ -9,9 +9,9 @@ const BREADCRUMB = [
 ];
 
 const SEARCH_TYPES = [
-  { value: 'address', label: 'Address', placeholder: 'Enter address (0x...)', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-  { value: 'tx', label: 'Transaction', placeholder: 'Enter tx hash (0x...)', icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' },
-  { value: 'block', label: 'Block', placeholder: 'Enter block number', icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' },
+  { value: 'address', label: 'Address', inputHint: 'Enter address (0x...)', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { value: 'tx', label: 'Transaction', inputHint: 'Enter tx hash (0x...)', icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' },
+  { value: 'block', label: 'Block', inputHint: 'Enter block number', icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' },
 ];
 
 const DEMO_RESULTS = {
@@ -103,8 +103,8 @@ function AddressResult({ data }) {
     <div className="space-y-4">
       <div className="card">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center">
-            <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="w-10 h-10 rounded-lg bg-indigo-500/15 flex items-center justify-center">
+            <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
           </div>
@@ -112,7 +112,7 @@ function AddressResult({ data }) {
             <h3 className="text-lg font-semibold text-white">Address Details</h3>
             <p className="text-gray-500 text-xs font-mono">{data.address}</p>
           </div>
-          <span className={`ml-auto text-[10px] font-bold px-2 py-1 rounded ${data.isContract ? 'bg-blue-500/15 text-blue-400' : 'bg-gray-500/15 text-gray-400'}`}>
+          <span className={`ml-auto text-[10px] font-bold px-2 py-1 rounded ${data.isContract ? 'bg-indigo-500/15 text-indigo-400' : 'bg-gray-500/15 text-gray-400'}`}>
             {data.isContract ? 'CONTRACT' : 'EOA'}
           </span>
         </div>
@@ -344,7 +344,7 @@ export default function ExplorerPage() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={currentSearchType.placeholder}
+              placeholder={currentSearchType.inputHint}
               className="input flex-1 font-mono"
             />
             <button type="submit" className="btn-primary" disabled={isLoading}>

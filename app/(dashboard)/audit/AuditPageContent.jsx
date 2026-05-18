@@ -203,7 +203,7 @@ const SEVERITY_COLORS = {
   critical: { text: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', bar: 'bg-red-500' },
   high:     { text: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/20', bar: 'bg-orange-500' },
   medium:   { text: 'text-yellow-400', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20', bar: 'bg-yellow-500' },
-  low:      { text: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', bar: 'bg-blue-500' },
+  low:      { text: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20', bar: 'bg-indigo-500' },
   informational: { text: 'text-gray-400', bg: 'bg-gray-500/10', border: 'border-gray-500/20', bar: 'bg-gray-500' },
 };
 
@@ -330,7 +330,7 @@ export default function AuditPageContent() {
           <div className="col-span-2">
             <div className="card">
               <h2 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 Contract Analysis
@@ -483,7 +483,7 @@ function FullReportTab() {
       </div>
       <div className="grid grid-cols-4 gap-3 mb-6">
         {['Source Analysis', 'Bytecode Scan', 'Gas Report', 'Compliance Check'].map((item) => (
-          <label key={item} className="flex items-center gap-2 p-3 rounded-lg bg-surface-2 border border-gray-600/20 cursor-pointer hover:border-blue-500/30">
+          <label key={item} className="flex items-center gap-2 p-3 rounded-lg bg-surface-2 border border-gray-600/20 cursor-pointer hover:border-indigo-500/30">
             <input type="checkbox" defaultChecked className="rounded border-gray-600" />
             <span className="text-xs text-gray-300">{item}</span>
           </label>
@@ -502,7 +502,7 @@ function BatchScanTab() {
           <h2 className="text-sm font-semibold text-white">Batch Scanner</h2>
           <p className="text-gray-500 text-xs mt-1">Scan multiple contracts simultaneously using Go concurrent scanner</p>
         </div>
-        <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded font-semibold">CONCURRENT</span>
+        <span className="text-[9px] bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded font-semibold">CONCURRENT</span>
       </div>
       <div className="mb-4">
         <label className="block text-xs text-gray-400 mb-1.5">Contract Addresses (one per line)</label>
@@ -619,8 +619,8 @@ function AuditResults({ result }) {
       {/* Contract Info Bar */}
       <div className="card flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-            <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+            <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
@@ -848,8 +848,8 @@ function EnhancedFindingRow({ finding }) {
 
           {/* Recommendation */}
           {finding.recommendation && (
-            <div className="bg-blue-500/5 border border-blue-500/10 rounded-lg p-3">
-              <p className="text-[10px] text-blue-400 font-semibold uppercase tracking-wider mb-1">Recommendation</p>
+            <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-lg p-3">
+              <p className="text-[10px] text-indigo-400 font-semibold uppercase tracking-wider mb-1">Recommendation</p>
               <p className="text-gray-300 text-sm leading-relaxed">{finding.recommendation}</p>
             </div>
           )}
@@ -891,7 +891,7 @@ function EnhancedFindingRow({ finding }) {
                   href={`https://cwe.mitre.org/data/definitions/${finding.cweId.replace('CWE-', '')}.html`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline font-mono"
+                  className="text-indigo-400 hover:underline font-mono"
                 >
                   {finding.cweId}
                 </a>
@@ -904,7 +904,7 @@ function EnhancedFindingRow({ finding }) {
                   href={`https://swcregistry.io/docs/${finding.swcId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline font-mono"
+                  className="text-indigo-400 hover:underline font-mono"
                 >
                   {finding.swcId}
                 </a>
@@ -916,7 +916,7 @@ function EnhancedFindingRow({ finding }) {
                 href={ref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-400 hover:text-blue-300 bg-blue-500/10 border border-blue-500/20 rounded px-2 py-0.5 transition-colors"
+                className="text-xs text-indigo-400 hover:text-blue-300 bg-indigo-500/10 border border-indigo-500/20 rounded px-2 py-0.5 transition-colors"
               >
                 {new URL(ref).hostname} ↗
               </a>

@@ -32,7 +32,7 @@ export default function GasPage() {
           <h1 className="text-2xl font-bold text-white tracking-tight">Gas Tracker</h1>
           <p className="text-gray-500 text-sm mt-1">Real-time gas prices across all supported networks</p>
         </div>
-        <span className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
+        <span className="text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -80,7 +80,7 @@ export default function GasPage() {
             { tip: 'Monitor base fee trends', detail: 'Gas prices are lowest during weekends and off-peak hours (UTC 2-6 AM).' },
           ].map((item, i) => (
             <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-surface-2/50">
-              <svg className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              <svg className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               <div>
                 <p className="text-white text-sm font-medium">{item.tip}</p>
                 <p className="text-gray-500 text-xs mt-0.5">{item.detail}</p>

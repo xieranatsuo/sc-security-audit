@@ -24,7 +24,7 @@ const ENDPOINTS = [
       depth: 'full',
     },
     response: {
-      data: {
+      data: { data: {
         auditId: 'AUD-2026-042',
         contractName: 'Uniswap V3 Router',
         riskScore: 22,
@@ -34,12 +34,10 @@ const ENDPOINTS = [
         ],
         scannedAt: '2026-05-18T14:30:00Z',
         duration: '4m 12s',
-      },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_a1b2c3' },
+      }, status: 'live', provider: 'etherscan-v2 + publicnode', lastUpdated: '2026-05-18T14:30:00Z', error: null },
     },
     errorResponse: {
-      error: { code: 'INVALID_ADDRESS', message: 'Contract address must be a valid 0x-prefixed hex string', details: null },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_err001' },
+      data: null, status: 'error', provider: 'etherscan-v2 + publicnode', lastUpdated: '2026-05-18T14:30:00Z', error: 'Contract address must be a valid 0x-prefixed hex string',
     },
     curl: `curl -X POST https://api.smartaudit.dev/api/audit/contract \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
@@ -92,7 +90,7 @@ print(f"Risk Score: {data['riskScore']}")`,
       { name: 'order', type: 'string', description: 'asc or desc (default: desc)' },
     ],
     response: {
-      data: {
+      data: { data: {
         audits: [
           {
             auditId: 'AUD-2026-001',
@@ -106,12 +104,10 @@ print(f"Risk Score: {data['riskScore']}")`,
           },
         ],
         pagination: { page: 1, limit: 20, total: 42, totalPages: 3 },
-      },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_d4e5f6' },
+      }, status: 'live', provider: 'internal', lastUpdated: '2026-05-18T14:30:00Z', error: null },
     },
     errorResponse: {
-      error: { code: 'UNAUTHORIZED', message: 'Valid authentication token required', details: null },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_err002' },
+      data: null, status: 'error', provider: 'internal', lastUpdated: '2026-05-18T14:30:00Z', error: 'Valid authentication token required',
     },
     curl: `curl https://api.smartaudit.dev/api/audit/history?page=1&limit=20&sort=date&order=desc \\
   -H "Authorization: Bearer YOUR_API_KEY"`,
@@ -150,18 +146,16 @@ for audit in data['audits']:
       priority: 'normal',
     },
     response: {
-      data: {
+      data: { data: {
         batchId: 'BAT-2026-017',
         contractsSubmitted: 3,
         status: 'queued',
         estimatedCompletion: '2026-05-18T14:45:00Z',
         results: null,
-      },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_g7h8i9' },
+      }, status: 'live', provider: 'etherscan-v2 + publicnode', lastUpdated: '2026-05-18T14:30:00Z', error: null },
     },
     errorResponse: {
-      error: { code: 'BATCH_LIMIT_EXCEEDED', message: 'Maximum 10 contracts per batch request', details: { submitted: 15 } },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_err003' },
+      data: null, status: 'error', provider: 'etherscan-v2 + publicnode', lastUpdated: '2026-05-18T14:30:00Z', error: 'Maximum 10 contracts per batch request',
     },
     curl: `curl -X POST https://api.smartaudit.dev/api/audit/batch \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
@@ -218,7 +212,7 @@ print(f"Batch ID: {data['batchId']}, Status: {data['status']}")`,
       { name: 'search', type: 'string', description: 'Search by name or CWE/SWC ID' },
     ],
     response: {
-      data: {
+      data: { data: {
         vulnerabilities: [
           {
             id: 'reentrancy',
@@ -232,12 +226,10 @@ print(f"Batch ID: {data['batchId']}, Status: {data['status']}")`,
           },
         ],
         total: 18,
-      },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_j0k1l2' },
+      }, status: 'live', provider: 'internal', lastUpdated: '2026-05-18T14:30:00Z', error: null },
     },
     errorResponse: {
-      error: { code: 'INVALID_FILTER', message: 'Unknown severity level: extreme', details: { allowed: ['critical', 'high', 'medium', 'low'] } },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_err004' },
+      data: null, status: 'error', provider: 'internal', lastUpdated: '2026-05-18T14:30:00Z', error: 'Unknown severity level: extreme',
     },
     curl: `curl https://api.smartaudit.dev/api/vulnerabilities?severity=critical \\
   -H "Authorization: Bearer YOUR_API_KEY"`,
@@ -265,7 +257,7 @@ for v in data['vulnerabilities']:
     description: 'Retrieve detailed information about a deployed smart contract including verification status, compiler version, bytecode metadata, and audit history.',
     requestBody: null,
     response: {
-      data: {
+      data: { data: {
         name: 'Uniswap V3 Router',
         address: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
         chain: 'ethereum',
@@ -276,12 +268,10 @@ for v in data['vulnerabilities']:
         txCount: 2847193,
         tags: ['amm', 'dex', 'swap', 'liquidity'],
         lastAudit: { auditId: 'AUD-2026-001', riskScore: 22, auditedAt: '2026-05-15T14:23:00Z' },
-      },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_m3n4o5' },
+      }, status: 'live', provider: 'etherscan-v2 + publicnode', lastUpdated: '2026-05-18T14:30:00Z', error: null },
     },
     errorResponse: {
-      error: { code: 'NOT_FOUND', message: 'No contract found at the specified address on this chain', details: { address: '0xdead...beef', chain: 'ethereum' } },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_err005' },
+      data: null, status: 'error', provider: 'etherscan-v2 + publicnode', lastUpdated: '2026-05-18T14:30:00Z', error: 'No contract found at the specified address on this chain',
     },
     curl: `curl https://api.smartaudit.dev/api/contracts/0xE592427A0AEce92De3Edee1F18E0157C05861564?chain=ethereum \\
   -H "Authorization: Bearer YOUR_API_KEY"`,
@@ -322,18 +312,16 @@ print(f"{data['name']} — Verified: {data['verified']}")`,
       webhookUrl: 'https://hooks.example.com/audit-alerts',
     },
     response: {
-      data: {
+      data: { data: {
         alertId: 'ALT-2026-023',
         name: 'Large Transfer Alert',
         contract: 'USDC',
         status: 'active',
         createdAt: '2026-05-18T14:30:00Z',
-      },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_p6q7r8' },
+      }, status: 'live', provider: 'internal', lastUpdated: '2026-05-18T14:30:00Z', error: null },
     },
     errorResponse: {
-      error: { code: 'INVALID_CONDITION', message: 'Alert condition type must be one of: transfer, gas, admin, oracle', details: { received: 'balance_change' } },
-      meta: { timestamp: '2026-05-18T14:30:00Z', version: '1.0.0', requestId: 'req_err006' },
+      data: null, status: 'error', provider: 'internal', lastUpdated: '2026-05-18T14:30:00Z', error: 'Alert condition type must be one of: transfer, gas, admin, oracle',
     },
     curl: `curl -X POST https://api.smartaudit.dev/api/monitor/alerts \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
@@ -385,7 +373,7 @@ print(f"Alert {data['alertId']} is {data['status']}")`,
 
 const METHOD_STYLES = {
   GET: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-  POST: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
+  POST: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
   PUT: 'bg-orange-500/15 text-orange-400 border-orange-500/30',
   DELETE: 'bg-red-500/15 text-red-400 border-red-500/30',
 };
@@ -479,7 +467,7 @@ function EndpointCard({ endpoint }) {
           {endpoint.requestBody && (
             <div>
               <h4 className="text-xs font-semibold text-gray-300 mb-2 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
                 Request Body
               </h4>
               <pre className="bg-surface-0 rounded-lg p-4 text-xs text-gray-300 overflow-x-auto font-mono">{JSON.stringify(endpoint.requestBody, null, 2)}</pre>
@@ -490,13 +478,13 @@ function EndpointCard({ endpoint }) {
           {endpoint.queryParams && (
             <div>
               <h4 className="text-xs font-semibold text-gray-300 mb-2 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
                 Query Parameters
               </h4>
               <div className="bg-surface-0 rounded-lg p-4 space-y-2">
                 {endpoint.queryParams.map((p) => (
                   <div key={p.name} className="flex items-start gap-3">
-                    <code className="text-xs text-blue-400 font-mono shrink-0 pt-0.5">{p.name}</code>
+                    <code className="text-xs text-indigo-400 font-mono shrink-0 pt-0.5">{p.name}</code>
                     <span className="text-[10px] text-gray-500 shrink-0 pt-0.5">{p.type}</span>
                     <span className="text-xs text-gray-400">{p.description}</span>
                   </div>
@@ -721,8 +709,8 @@ X-RateLimit-Reset: 1716045600`}</pre>
   "meta": { ... }
 }`}</pre>
 
-              <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
-                <p className="text-blue-400 text-xs font-semibold mb-1">Best Practices</p>
+              <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-4">
+                <p className="text-indigo-400 text-xs font-semibold mb-1">Best Practices</p>
                 <ul className="text-gray-400 text-sm space-y-1">
                   <li>• Implement exponential backoff when receiving 429 responses</li>
                   <li>• Cache responses where possible to reduce API calls</li>

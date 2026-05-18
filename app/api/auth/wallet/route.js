@@ -6,28 +6,26 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { createSession, COOKIE_NAME } from '@/lib/auth';
 
 // In-memory wallet users
 const walletUsers = new Map();
 
 export async function POST(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { address, signature, message, chainId } = await request.json();
 
     if (!address || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, 'Valid wallet address required', null, { requestId }),
+        errorEnvelope('Valid wallet address required', 'internal'),
         { status: 400 }
       );
     }
 
     if (!signature || !message) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, 'Signature and message are required', null, { requestId }),
+        errorEnvelope('Signature and message are required', 'internal'),
         { status: 400 }
       );
     }
@@ -36,7 +34,7 @@ export async function POST(request) {
     // For demo: accept any valid-looking signature
     if (signature.length < 10) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, 'Invalid signature', null, { requestId }),
+        errorEnvelope('Invalid signature', 'internal'),
         { status: 400 }
       );
     }
@@ -59,7 +57,7 @@ export async function POST(request) {
 
     const token = createSession(user.id);
 
-    const response = NextResponse.json(successEnvelope({ user, token }, { requestId }));
+    const response = NextResponse.json(successEnvelope({ user, token }, 'internal', 'live'));
     response.cookies.set(COOKIE_NAME, token, {
       httpOnly: true,
       secure: true,
@@ -71,7 +69,7 @@ export async function POST(request) {
     return response;
   } catch (error) {
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, error.message, null, { requestId }),
+      errorEnvelope(error.message, 'internal'),
       { status: 500 }
     );
   }

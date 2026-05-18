@@ -3,7 +3,7 @@
  * Run with: npx jest tests/javascript/
  */
 
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope, envelope, ErrorCodes } from '@/lib/api/envelope';
 import { validateAddress, validateChain, validatePagination } from '@/lib/validators';
 import { validateRiskWeights, config } from '@/lib/config';
 
@@ -11,21 +11,44 @@ describe('API Envelope', () => {
   test('successEnvelope wraps data correctly', () => {
     const result = successEnvelope({ foo: 'bar' });
     expect(result.data).toEqual({ foo: 'bar' });
-    expect(result.meta).toHaveProperty('timestamp');
-    expect(result.meta).toHaveProperty('version', '1.0.0');
-    expect(result.meta).toHaveProperty('requestId');
+    expect(result.status).toBe('live');
+    expect(result.provider).toBe('internal');
+    expect(result.lastUpdated).toBeTruthy();
+    expect(result.error).toBeNull();
+  });
+
+  test('successEnvelope accepts provider and status', () => {
+    const result = successEnvelope({ price: 100 }, 'binance', 'cached');
+    expect(result.data).toEqual({ price: 100 });
+    expect(result.status).toBe('cached');
+    expect(result.provider).toBe('binance');
+    expect(result.error).toBeNull();
   });
 
   test('errorEnvelope wraps error correctly', () => {
-    const result = errorEnvelope(ErrorCodes.VALIDATION_ERROR, 'Bad input');
-    expect(result.error.code).toBe('VALIDATION_ERROR');
-    expect(result.error.message).toBe('Bad input');
-    expect(result.meta).toHaveProperty('timestamp');
+    const result = errorEnvelope('Bad input');
+    expect(result.data).toBeNull();
+    expect(result.status).toBe('error');
+    expect(result.provider).toBe('internal');
+    expect(result.error).toBe('Bad input');
+    expect(result.lastUpdated).toBeTruthy();
   });
 
-  test('errorEnvelope includes details when provided', () => {
-    const result = errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Fail', { stack: '...' });
-    expect(result.error.details).toEqual({ stack: '...' });
+  test('errorEnvelope accepts provider', () => {
+    const result = errorEnvelope('API timeout', 'etherscan-v2 + publicnode');
+    expect(result.data).toBeNull();
+    expect(result.status).toBe('error');
+    expect(result.provider).toBe('etherscan-v2 + publicnode');
+    expect(result.error).toBe('API timeout');
+  });
+
+  test('envelope helper creates custom envelope', () => {
+    const result = envelope({ data: [1, 2], status: 'fallback', provider: 'cache', error: null });
+    expect(result.data).toEqual([1, 2]);
+    expect(result.status).toBe('fallback');
+    expect(result.provider).toBe('cache');
+    expect(result.error).toBeNull();
+    expect(result.lastUpdated).toBeTruthy();
   });
 });
 

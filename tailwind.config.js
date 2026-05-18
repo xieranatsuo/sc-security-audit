@@ -16,10 +16,10 @@ module.exports = {
           3: '#222225',
         },
         accent: {
-          DEFAULT: '#5e9eff',
-          hover:   '#7ab3ff',
-          muted:   'rgba(94,158,255,0.12)',
-          ring:    'rgba(94,158,255,0.25)',
+          DEFAULT: '#818cf8',
+          hover:   '#a5b4fc',
+          muted:   'rgba(129,140,248,0.12)',
+          ring:    'rgba(129,140,248,0.25)',
         },
         txt: {
           primary:   '#fafafa',
@@ -42,7 +42,7 @@ module.exports = {
         border: {
           DEFAULT: 'rgba(255,255,255,0.06)',
           hover:   'rgba(255,255,255,0.10)',
-          active:  'rgba(94,158,255,0.30)',
+          active:  'rgba(129,140,248,0.30)',
         },
       },
       fontFamily: {
@@ -82,7 +82,7 @@ module.exports = {
         'sm':   '0 1px 2px rgba(0,0,0,0.3)',
         'md':   '0 2px 8px rgba(0,0,0,0.4)',
         'lg':   '0 8px 24px rgba(0,0,0,0.5)',
-        'glow': '0 0 20px rgba(94,158,255,0.08)',
+        'glow': '0 0 20px rgba(129,140,248,0.08)',
       },
       keyframes: {
         fadeIn: {

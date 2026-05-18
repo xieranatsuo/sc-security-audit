@@ -51,7 +51,7 @@ export function Header() {
       <div className="flex items-center gap-2">
         {!loading && user ? (
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400">
+            <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-xs font-bold text-indigo-400">
               {(user.name || user.email || 'U').charAt(0).toUpperCase()}
             </div>
             <div className="hidden sm:block">

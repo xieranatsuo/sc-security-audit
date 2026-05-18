@@ -17,5 +17,5 @@ export async function GET() {
       rpc: { status: 'connected', latency: null },
       database: { status: 'connected', latency: null },
     },
-  }));
+  }, 'internal', 'live'));
 }

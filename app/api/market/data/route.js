@@ -5,7 +5,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 
 const SYMBOL_MAP = {
   ETH: 'ETHUSDT',
@@ -16,8 +16,6 @@ const SYMBOL_MAP = {
 };
 
 export async function GET(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { searchParams } = new URL(request.url);
     const symbolsParam = searchParams.get('symbols') || 'ETH,BNB,MATIC';
@@ -53,13 +51,12 @@ export async function GET(request) {
 
     return NextResponse.json(successEnvelope({
       prices,
-      source: 'binance',
       vs: 'usd',
-    }, { requestId }));
+    }, 'binance', 'live'));
   } catch (error) {
     console.error('[market/data]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'binance'),
       { status: 500 }
     );
   }

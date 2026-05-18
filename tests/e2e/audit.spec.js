@@ -42,7 +42,9 @@ test.describe('Smart Contract Audit Platform', () => {
 
     const data = await response.json();
     expect(data.data.status).toBe('healthy');
-    expect(data.meta.version).toBe('1.0.0');
+    expect(data.status).toBe('live');
+    expect(data.provider).toBe('internal');
+    expect(data.lastUpdated).toBeTruthy();
   });
 
   test('market data endpoint returns prices', async ({ request }) => {
@@ -62,8 +64,8 @@ test.describe('Smart Contract Audit Platform', () => {
 
     expect(response.status()).toBe(400);
     const data = await response.json();
-    expect(data.error).toBeDefined();
-    expect(data.error.code).toBe('VALIDATION_ERROR');
+    expect(data.status).toBe('error');
+    expect(data.error).toBeTruthy();
   });
 
   test('risk score endpoint validates formula', async ({ request }) => {

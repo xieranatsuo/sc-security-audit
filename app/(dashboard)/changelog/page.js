@@ -35,7 +35,7 @@ export default function ChangelogPage() {
         <div key={entry.version} className="card">
           <div className="flex items-center gap-3 mb-4">
             <h2 className="text-lg font-semibold text-white">v{entry.version}</h2>
-            <span className={`text-[9px] font-semibold px-2 py-0.5 rounded ${entry.tag === 'Latest' ? 'bg-blue-500/15 text-blue-400' : 'bg-gray-500/15 text-gray-400'}`}>{entry.tag}</span>
+            <span className={`text-[9px] font-semibold px-2 py-0.5 rounded ${entry.tag === 'Latest' ? 'bg-indigo-500/15 text-indigo-400' : 'bg-gray-500/15 text-gray-400'}`}>{entry.tag}</span>
             <span className="text-xs text-gray-500 ml-auto">{entry.date}</span>
           </div>
           <ul className="space-y-2">

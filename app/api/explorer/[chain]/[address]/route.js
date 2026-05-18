@@ -4,21 +4,19 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { validateAddress, validateChain } from '@/lib/validators';
 import { getContractSource, getTransactions, getBalance } from '@/lib/etherscan';
 import { getCode } from '@/lib/rpc';
 
 export async function GET(request, { params }) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { chain, address } = await params;
 
     const chainValidation = validateChain(chain);
     if (!chainValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, chainValidation.error, null, { requestId }),
+        errorEnvelope(chainValidation.error, 'etherscan-v2 + publicnode'),
         { status: 400 }
       );
     }
@@ -26,7 +24,7 @@ export async function GET(request, { params }) {
     const addressValidation = validateAddress(address);
     if (!addressValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, addressValidation.error, null, { requestId }),
+        errorEnvelope(addressValidation.error, 'etherscan-v2 + publicnode'),
         { status: 400 }
       );
     }
@@ -89,11 +87,11 @@ export async function GET(request, { params }) {
         timeStamp: tx.timeStamp,
         isError: tx.isError,
       })) : [],
-    }, { requestId }));
+    }, 'etherscan-v2 + publicnode', 'live'));
   } catch (error) {
     console.error('[explorer]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'etherscan-v2 + publicnode'),
       { status: 500 }
     );
   }

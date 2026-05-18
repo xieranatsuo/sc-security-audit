@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { DEMO_CONTRACTS, DEMO_ALERTS, DEMO_TRANSACTIONS } from '@/lib/mock-data';
+import { DEMO_CONTRACTS, DEMO_ALERTS, DEMO_TRANSACTIONS } from '@/lib/reference-data';
 
 const MONITOR_STORAGE_KEY = 'monitored_contracts';
 
@@ -26,7 +26,7 @@ function getRiskColor(score) {
   if (score >= 70) return 'text-red-400';
   if (score >= 40) return 'text-orange-400';
   if (score >= 20) return 'text-yellow-400';
-  return 'text-blue-400';
+  return 'text-indigo-400';
 }
 
 function getTimeAgo(timestamp) {

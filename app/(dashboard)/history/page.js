@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { DEMO_AUDIT_HISTORY } from '@/lib/mock-data';
+import { DEMO_AUDIT_HISTORY } from '@/lib/reference-data';
 
 const BREADCRUMB = [
   { label: 'Dashboard', href: '/' },
@@ -10,7 +10,7 @@ const BREADCRUMB = [
 ];
 
 const CHAIN_BADGES = {
-  ethereum: 'bg-blue-500/15 text-blue-400',
+  ethereum: 'bg-indigo-500/15 text-indigo-400',
   bsc: 'bg-yellow-500/15 text-yellow-400',
   polygon: 'bg-purple-500/15 text-purple-400',
   arbitrum: 'bg-sky-500/15 text-sky-400',
@@ -19,7 +19,7 @@ const CHAIN_BADGES = {
 const STATUS_BADGES = {
   completed: 'bg-emerald-500/15 text-emerald-400',
   failed: 'bg-red-500/15 text-red-400',
-  in_progress: 'bg-blue-500/15 text-blue-400',
+  in_progress: 'bg-indigo-500/15 text-indigo-400',
 };
 
 const RISK_COLORS = (score) => {
@@ -61,7 +61,7 @@ function SeverityBreakdown({ audit }) {
         <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-yellow-500/15 text-yellow-400">{audit.mediumCount}M</span>
       )}
       {audit.lowCount > 0 && (
-        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400">{audit.lowCount}L</span>
+        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-400">{audit.lowCount}L</span>
       )}
     </div>
   );
@@ -110,7 +110,7 @@ function ReportModal({ audit, onClose }) {
               { label: 'Critical', count: audit.criticalCount, color: 'text-red-400 bg-red-500/10' },
               { label: 'High', count: audit.highCount, color: 'text-orange-400 bg-orange-500/10' },
               { label: 'Medium', count: audit.mediumCount, color: 'text-yellow-400 bg-yellow-500/10' },
-              { label: 'Low', count: audit.lowCount, color: 'text-blue-400 bg-blue-500/10' },
+              { label: 'Low', count: audit.lowCount, color: 'text-indigo-400 bg-indigo-500/10' },
             ].map((s) => (
               <div key={s.label} className={`rounded-lg p-3 text-center ${s.color}`}>
                 <p className="text-xl font-bold">{s.count}</p>

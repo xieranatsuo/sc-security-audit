@@ -4,19 +4,17 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { validateChain, validatePagination } from '@/lib/validators';
 
 export async function GET(request, { params }) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { chain } = await params;
     const chainValidation = validateChain(chain);
 
     if (!chainValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, chainValidation.error, null, { requestId }),
+        errorEnvelope(chainValidation.error, 'internal'),
         { status: 400 }
       );
     }
@@ -37,11 +35,11 @@ export async function GET(request, { params }) {
         total: 0,
         totalPages: 0,
       },
-    }, { requestId }));
+    }, 'internal', 'live'));
   } catch (error) {
     console.error('[contracts/chain]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'internal'),
       { status: 500 }
     );
   }

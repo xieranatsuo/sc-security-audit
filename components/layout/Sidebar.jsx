@@ -72,7 +72,7 @@ export function Sidebar() {
       {/* Logo */}
       <div className="h-16 px-4 flex items-center justify-between border-b border-gray-600/10 shrink-0">
         <Link href="/audit" className="flex items-center gap-3 min-w-0">
-          <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
+          <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/20">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -128,17 +128,17 @@ export function Sidebar() {
                         sidebarCollapsed ? 'px-0 py-2.5 justify-center' : 'px-3 py-2'
                       } ${
                         isActive
-                          ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                          ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
                           : 'text-gray-400 hover:text-white hover:bg-surface-2 border border-transparent'
                       }`}
                     >
                       <SvgIcon
                         path={item.icon}
-                        className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-blue-400' : 'text-gray-500'}`}
+                        className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-indigo-400' : 'text-gray-500'}`}
                       />
                       {!sidebarCollapsed && <span className="truncate">{item.name}</span>}
                       {!sidebarCollapsed && item.href === '/audit/batch' && (
-                        <span className="ml-auto text-[9px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded font-semibold">PRO</span>
+                        <span className="ml-auto text-[9px] bg-indigo-500/20 text-indigo-400 px-1.5 py-0.5 rounded font-semibold">PRO</span>
                       )}
                     </Link>
                   );
@@ -172,7 +172,7 @@ export function Sidebar() {
           ) : (
             <div className="space-y-2">
               <div className="flex items-center gap-3 px-2 py-2 rounded-lg bg-surface-2/50">
-                <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-xs font-bold text-indigo-400 shrink-0">
                   {(user.name || user.email || 'U').charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -190,7 +190,7 @@ export function Sidebar() {
           )
         ) : !loading ? (
           sidebarCollapsed ? (
-            <Link href="/register" className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center mx-auto hover:bg-blue-600 transition-colors" title="Sign Up">
+            <Link href="/register" className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center mx-auto hover:bg-indigo-600 transition-colors" title="Sign Up">
               <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
             </Link>
           ) : (
@@ -200,7 +200,7 @@ export function Sidebar() {
                 Sign Up Free
               </Link>
               <Link href="/login" className="block text-center text-xs text-gray-500 hover:text-white transition-colors">
-                Already have an account? <span className="text-blue-400">Sign in</span>
+                Already have an account? <span className="text-indigo-400">Sign in</span>
               </Link>
             </div>
           )

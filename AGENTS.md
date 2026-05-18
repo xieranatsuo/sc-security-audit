@@ -16,7 +16,7 @@ Stack: Next.js 15 (JavaScript) + Python + Go + SQL + Bash.
 
 ## Conventions
 
-- ALL API responses use envelope format: `{ data, meta }` or `{ error, meta }`
+- ALL API responses use envelope format: `{ data, status, provider, lastUpdated, error }`
 - NO TypeScript — pure JavaScript only
 - Risk scoring formula: `RiskScore = 100 × (w₁·S + w₂·E + w₃·A + w₄·I + w₅·D)`
 - Runtime weight validation — weights must sum to 1.0

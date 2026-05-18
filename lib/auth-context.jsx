@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
     const domain = window.location.host;
     const uri = window.location.origin;
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-    const nonce = Math.random().toString(36).slice(2, 10);
+    const nonce = Date.now().toString(36).slice(-8);
 
     const message = [
       `${domain} wants you to sign in with your Ethereum account:`,

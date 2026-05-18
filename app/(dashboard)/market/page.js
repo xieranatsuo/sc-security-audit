@@ -26,7 +26,7 @@ export default function MarketPage() {
           <h1 className="text-2xl font-bold text-white tracking-tight">Market Data</h1>
           <p className="text-gray-500 text-sm mt-1">Token prices and market activity for supported chains</p>
         </div>
-        <span className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
+        <span className="text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
       </div>
 
       <div className="overflow-x-auto">

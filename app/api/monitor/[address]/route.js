@@ -4,19 +4,17 @@
  */
 
 import { NextResponse } from 'next/server';
-import { successEnvelope, errorEnvelope, ErrorCodes } from '@/lib/api/envelope';
+import { successEnvelope, errorEnvelope } from '@/lib/api/envelope';
 import { validateAddress } from '@/lib/validators';
 
 export async function GET(request, { params }) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const { address } = await params;
     const validation = validateAddress(address);
 
     if (!validation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, validation.error, null, { requestId }),
+        errorEnvelope(validation.error, 'internal'),
         { status: 400 }
       );
     }
@@ -26,11 +24,11 @@ export async function GET(request, { params }) {
       isMonitored: false,
       alerts: [],
       lastCheck: null,
-    }, { requestId }));
+    }, 'internal', 'live'));
   } catch (error) {
     console.error('[monitor/address]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'internal'),
       { status: 500 }
     );
   }

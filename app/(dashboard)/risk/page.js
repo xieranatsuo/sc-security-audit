@@ -219,7 +219,7 @@ export default function RiskAnalysisPage() {
         <div className="card lg:col-span-2">
           <p className="text-[11px] text-gray-500 uppercase tracking-wider mb-3">Risk Scoring Formula</p>
           <div className="bg-surface-2 rounded-lg p-4 border border-gray-600/10 mb-4">
-            <p className="font-mono text-sm text-blue-400">
+            <p className="font-mono text-sm text-indigo-400">
               RiskScore = 100 × (w₁·S + w₂·E + w₃·A + w₄·I + w₅·D)
             </p>
             <div className="mt-2 text-[10px] text-gray-500 space-y-0.5">
@@ -231,13 +231,13 @@ export default function RiskAnalysisPage() {
           <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Weight Distribution</p>
           <div className="h-3 bg-surface-3 rounded-full overflow-hidden flex">
             {WEIGHTS.map((w, i) => {
-              const colors = ['bg-blue-500', 'bg-orange-500', 'bg-yellow-500', 'bg-purple-500', 'bg-emerald-500', 'bg-pink-500'];
+              const colors = ['bg-indigo-500', 'bg-orange-500', 'bg-yellow-500', 'bg-purple-500', 'bg-emerald-500', 'bg-pink-500'];
               return <div key={i} className={`${colors[i]} transition-all`} style={{ width: `${w.weight * 100}%` }} title={`${w.name}: ${(w.weight * 100).toFixed(0)}%`} />;
             })}
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
             {WEIGHTS.map((w, i) => {
-              const colors = ['bg-blue-500', 'bg-orange-500', 'bg-yellow-500', 'bg-purple-500', 'bg-emerald-500', 'bg-pink-500'];
+              const colors = ['bg-indigo-500', 'bg-orange-500', 'bg-yellow-500', 'bg-purple-500', 'bg-emerald-500', 'bg-pink-500'];
               return (
                 <span key={i} className="flex items-center gap-1.5 text-[10px] text-gray-500">
                   <span className={`w-2 h-2 rounded-full ${colors[i]}`} />

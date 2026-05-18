@@ -6,7 +6,7 @@
  *   { address: string, chain: string|number }
  *
  * Response:
- *   { data: SecurityReport, meta: EnvelopeMeta }
+ *   { data: SecurityReport, status, provider, lastUpdated, error }
  */
 
 import { NextResponse } from 'next/server';
@@ -113,8 +113,6 @@ function analyzeContract(sourceCode, bytecode, contractName) {
 }
 
 export async function POST(request) {
-  const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
   try {
     const body = await request.json();
     const { address, chain } = body;
@@ -123,7 +121,7 @@ export async function POST(request) {
     const addressValidation = validateAddress(address);
     if (!addressValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, addressValidation.error, null, { requestId }),
+        errorEnvelope(addressValidation.error, 'etherscan-v2 + publicnode'),
         { status: 400 }
       );
     }
@@ -131,7 +129,7 @@ export async function POST(request) {
     const chainValidation = validateChain(chain || 'ethereum');
     if (!chainValidation.valid) {
       return NextResponse.json(
-        errorEnvelope(ErrorCodes.VALIDATION_ERROR, chainValidation.error, null, { requestId }),
+        errorEnvelope(chainValidation.error, 'etherscan-v2 + publicnode'),
         { status: 400 }
       );
     }
@@ -147,10 +145,8 @@ export async function POST(request) {
       if (error.message.includes('not verified')) {
         return NextResponse.json(
           errorEnvelope(
-            ErrorCodes.CONTRACT_NOT_VERIFIED,
             `Contract ${address} is not verified on ${chainValidation.chainName}`,
-            { chain: chainValidation.chainName },
-            { requestId }
+            'etherscan-v2 + publicnode'
           ),
           { status: 404 }
         );
@@ -191,11 +187,11 @@ export async function POST(request) {
       },
     };
 
-    return NextResponse.json(successEnvelope(report, { requestId }));
+    return NextResponse.json(successEnvelope(report, 'etherscan-v2 + publicnode', 'live'));
   } catch (error) {
     console.error('[audit/contract]', error);
     return NextResponse.json(
-      errorEnvelope(ErrorCodes.INTERNAL_ERROR, 'Internal server error', error.message, { requestId }),
+      errorEnvelope('Internal server error', 'etherscan-v2 + publicnode'),
       { status: 500 }
     );
   }

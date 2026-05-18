@@ -41,7 +41,7 @@ export default function TransactionsPage() {
           <h1 className="text-2xl font-bold text-white tracking-tight">Transaction Monitor</h1>
           <p className="text-gray-500 text-sm mt-1">Monitor and analyze on-chain transactions with risk labels</p>
         </div>
-        <span className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
+        <span className="text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
       </div>
 
       {/* Filters */}
@@ -75,7 +75,7 @@ export default function TransactionsPage() {
           <tbody>
             {filtered.map((tx, i) => (
               <tr key={i} className="table-row">
-                <td className="px-4 py-3 text-xs font-mono text-blue-400">{tx.hash}</td>
+                <td className="px-4 py-3 text-xs font-mono text-indigo-400">{tx.hash}</td>
                 <td className="px-4 py-3 text-xs font-mono text-gray-300">{tx.method}</td>
                 <td className="px-4 py-3 text-xs font-mono text-gray-400">{tx.from}</td>
                 <td className="px-4 py-3 text-xs font-mono text-gray-400">{tx.to}</td>

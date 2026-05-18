@@ -70,12 +70,12 @@ const SEVERITIES = ['critical', 'high', 'medium', 'low', 'informational'];
 
 /* ─── Helpers ──────────────────────────────────────────── */
 const sevColor = (sev) => {
-  const map = { critical: 'text-red-400', high: 'text-orange-400', medium: 'text-yellow-400', low: 'text-green-400', informational: 'text-blue-400' };
+  const map = { critical: 'text-red-400', high: 'text-orange-400', medium: 'text-yellow-400', low: 'text-green-400', informational: 'text-indigo-400' };
   return map[sev] || 'text-gray-400';
 };
 
 const sevBg = (sev) => {
-  const map = { critical: 'bg-red-500', high: 'bg-orange-500', medium: 'bg-yellow-500', low: 'bg-green-500', informational: 'bg-blue-500' };
+  const map = { critical: 'bg-red-500', high: 'bg-orange-500', medium: 'bg-yellow-500', low: 'bg-green-500', informational: 'bg-indigo-500' };
   return map[sev] || 'bg-gray-500';
 };
 
@@ -85,7 +85,7 @@ const sevBadge = (sev) => {
     high: 'bg-orange-500/15 text-orange-400',
     medium: 'bg-yellow-500/15 text-yellow-400',
     low: 'bg-green-500/15 text-green-400',
-    informational: 'bg-blue-500/15 text-blue-400',
+    informational: 'bg-indigo-500/15 text-indigo-400',
   };
   return map[sev] || 'bg-gray-500/15 text-gray-400';
 };
@@ -280,7 +280,7 @@ export default function BatchScannerPage() {
 
   const SortIcon = ({ col }) => {
     if (sortBy !== col) return <span className="text-gray-600 ml-1">↕</span>;
-    return <span className="text-blue-400 ml-1">{sortDir === 'desc' ? '↓' : '↑'}</span>;
+    return <span className="text-indigo-400 ml-1">{sortDir === 'desc' ? '↓' : '↑'}</span>;
   };
 
   return (
@@ -299,7 +299,7 @@ export default function BatchScannerPage() {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold text-white tracking-tight">Enterprise Batch Scanner</h1>
-            <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-semibold uppercase tracking-wider">Concurrent</span>
+            <span className="text-[9px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded font-semibold uppercase tracking-wider">Concurrent</span>
           </div>
           <p className="text-gray-500 text-sm mt-1">Scan multiple contracts concurrently with deterministic analysis engine</p>
         </div>
@@ -312,7 +312,7 @@ export default function BatchScannerPage() {
           <div className="card">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-                <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
                 Contract Addresses
@@ -396,11 +396,11 @@ export default function BatchScannerPage() {
                 <span className="text-xs text-white font-mono">{progress}%</span>
               </div>
               <div className="h-2 bg-surface-3 rounded-full overflow-hidden">
-                <div className="h-full bg-blue-500 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+                <div className="h-full bg-indigo-500 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
               </div>
               <div className="flex items-center gap-4 mt-2 text-[10px] text-gray-500">
                 <span>Queued: {Object.values(contractStates).filter(s => s === 'queued').length}</span>
-                <span className="text-blue-400">Scanning: {Object.values(contractStates).filter(s => s === 'scanning').length}</span>
+                <span className="text-indigo-400">Scanning: {Object.values(contractStates).filter(s => s === 'scanning').length}</span>
                 <span className="text-green-400">Completed: {Object.values(contractStates).filter(s => s === 'completed').length}</span>
                 <span className="text-red-400">Failed: {Object.values(contractStates).filter(s => s === 'failed').length}</span>
               </div>
@@ -427,7 +427,7 @@ export default function BatchScannerPage() {
                 <p className="text-[10px] text-gray-500">Failed</p>
               </div>
               <div className="card card-compact text-center">
-                <p className="text-lg font-bold text-blue-400">{summary.avgScanTime}s</p>
+                <p className="text-lg font-bold text-indigo-400">{summary.avgScanTime}s</p>
                 <p className="text-[10px] text-gray-500">Avg Scan Time</p>
               </div>
               <div className="card card-compact text-center">
@@ -534,14 +534,14 @@ export default function BatchScannerPage() {
                   <div key={addr} className="flex items-center gap-3 py-1.5 px-3 rounded bg-surface-2">
                     <span className={`w-2 h-2 rounded-full ${
                       state === 'completed' ? 'bg-green-400' :
-                      state === 'scanning' ? 'bg-blue-400 animate-pulse' :
+                      state === 'scanning' ? 'bg-indigo-400 animate-pulse' :
                       state === 'failed' ? 'bg-red-400' :
                       'bg-gray-500'
                     }`} />
                     <span className="text-xs font-mono text-gray-400 flex-1">{addr.slice(0, 10)}...{addr.slice(-6)}</span>
                     <span className={`text-[10px] font-semibold ${
                       state === 'completed' ? 'text-green-400' :
-                      state === 'scanning' ? 'text-blue-400' :
+                      state === 'scanning' ? 'text-indigo-400' :
                       state === 'failed' ? 'text-red-400' :
                       'text-gray-500'
                     }`}>
@@ -569,7 +569,7 @@ export default function BatchScannerPage() {
                 { step: '6', label: 'Results sorted & exportable' },
               ].map((s) => (
                 <div key={s.step} className="flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-[10px] text-blue-400 font-bold shrink-0">{s.step}</span>
+                  <span className="w-5 h-5 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-[10px] text-indigo-400 font-bold shrink-0">{s.step}</span>
                   <span className="text-xs text-gray-400">{s.label}</span>
                 </div>
               ))}
