@@ -1,7 +1,3 @@
-module github.com/smart-contract-audit-platform/scanner
+module smart-contract-audit/scanners/go
 
 go 1.21
-
-require (
-	golang.org/x/sync v0.6.0
-)
