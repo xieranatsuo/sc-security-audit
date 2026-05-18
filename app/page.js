@@ -39,7 +39,11 @@ export default function HomePage() {
             </Link>
             <Link href="/audit?demo=true" className="btn-secondary text-sm px-6 py-2.5 flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              Try Demo
+              Try Demo Scan
+            </Link>
+            <Link href="/vulnerabilities" className="btn-ghost text-sm px-6 py-2.5 flex items-center gap-2 text-gray-400 hover:text-white">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+              Vulnerability DB
             </Link>
           </div>
         </div>
@@ -47,7 +51,11 @@ export default function HomePage() {
 
       {/* Trust Counters */}
       <section className="border-b border-gray-600/10">
-        <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="text-center mb-2">
+            <span className="text-[10px] text-gray-500 uppercase tracking-wider">Demo Metrics</span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { value: '1,247', label: 'Contracts Audited', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
             { value: '4', label: 'Chains Supported', icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9' },
@@ -64,6 +72,7 @@ export default function HomePage() {
               <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
@@ -174,7 +183,8 @@ export default function HomePage() {
                 <p className="text-gray-400 text-sm leading-relaxed">
                   This tool provides automated analysis and does not constitute a full professional audit.
                   It detects known vulnerability patterns but may miss novel attack vectors, business logic errors,
-                  or complex multi-contract interactions. <strong className="text-gray-300">Always consult a certified smart contract auditor before deploying to mainnet.</strong>
+                  or complex multi-contract interactions. <strong className="text-gray-300">False positives and false negatives are possible.</strong>
+                  Always consult a certified smart contract auditor before deploying to mainnet.
                 </p>
               </div>
             </div>
