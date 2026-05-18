@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { register, connectWallet } = useAuth();
   const [method, setMethod] = useState(null); // null = choose, 'email' | 'wallet'
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,13 +22,7 @@ export default function RegisterPage() {
     setError('');
     setIsLoading(true);
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name }),
-      });
-      const data = await res.json();
-      if (data.error) { setError(data.error.message); return; }
+      await register(email, password, name);
       router.push('/audit');
     } catch (err) { setError(err.message || 'Registration failed'); }
     finally { setIsLoading(false); }
@@ -36,45 +32,9 @@ export default function RegisterPage() {
     setError('');
     setIsLoading(true);
     try {
-      if (!window.ethereum) {
-        setError('No wallet detected. Install MetaMask, Rabby, or another Web3 wallet.');
-        setIsLoading(false);
-        return;
-      }
-
       setWalletStep('signing');
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const address = accounts[0];
-      setWalletAddress(address);
-
-      // SIWE message
-      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      const nonce = Math.random().toString(36).slice(2, 10);
-      const message = [
-        `${window.location.host} wants you to sign in with your Ethereum account:`,
-        address,
-        '',
-        'Sign in to Smart Contract Audit Platform',
-        '',
-        `URI: ${window.location.origin}`,
-        `Chain ID: ${parseInt(chainId)}`,
-        `Nonce: ${nonce}`,
-        `Issued At: ${new Date().toISOString()}`,
-      ].join('\n');
-
-      const signature = await window.ethereum.request({
-        method: 'personal_sign',
-        params: [message, address],
-      });
-
-      const res = await fetch('/api/auth/wallet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ address, signature, message, chainId: parseInt(chainId) }),
-      });
-      const data = await res.json();
-      if (data.error) { setError(data.error.message); setWalletStep('connect'); return; }
-
+      const user = await connectWallet();
+      setWalletAddress(user?.wallet_address || '');
       setWalletStep('done');
       setTimeout(() => router.push('/audit'), 800);
     } catch (err) {

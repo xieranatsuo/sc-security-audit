@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login, connectWallet } = useAuth();
   const [method, setMethod] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,13 +19,7 @@ export default function LoginPage() {
     setError('');
     setIsLoading(true);
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (data.error) { setError(data.error.message); return; }
+      await login(email, password);
       router.push('/audit');
     } catch (err) { setError(err.message || 'Login failed'); }
     finally { setIsLoading(false); }
@@ -33,41 +29,7 @@ export default function LoginPage() {
     setError('');
     setIsLoading(true);
     try {
-      if (!window.ethereum) {
-        setError('No wallet detected. Install MetaMask or another Web3 wallet.');
-        setIsLoading(false);
-        return;
-      }
-
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const address = accounts[0];
-      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      const nonce = Math.random().toString(36).slice(2, 10);
-
-      const message = [
-        `${window.location.host} wants you to sign in with your Ethereum account:`,
-        address,
-        '',
-        'Sign in to Smart Contract Audit Platform',
-        '',
-        `URI: ${window.location.origin}`,
-        `Chain ID: ${parseInt(chainId)}`,
-        `Nonce: ${nonce}`,
-        `Issued At: ${new Date().toISOString()}`,
-      ].join('\n');
-
-      const signature = await window.ethereum.request({
-        method: 'personal_sign',
-        params: [message, address],
-      });
-
-      const res = await fetch('/api/auth/wallet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ address, signature, message, chainId: parseInt(chainId) }),
-      });
-      const data = await res.json();
-      if (data.error) { setError(data.error.message); return; }
+      await connectWallet();
       router.push('/audit');
     } catch (err) {
       if (err.code === 4001) setError('Signature rejected.');

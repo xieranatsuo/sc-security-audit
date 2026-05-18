@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import { useState } from 'react';
+import { useAuth } from '@/lib/auth-context';
 
 const navigation = [
   {
@@ -62,6 +63,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState({});
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const { user, loading, logout } = useAuth();
 
   const toggleSection = (section) => {
     setCollapsed(prev => ({ ...prev, [section]: !prev[section] }));
@@ -180,21 +182,56 @@ export function Sidebar() {
 
       {/* Auth / User */}
       <div className="px-3 py-3 border-t border-gray-600/10 shrink-0">
-        {sidebarCollapsed ? (
-          <Link href="/register" className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center mx-auto hover:bg-blue-600 transition-colors" title="Sign Up">
-            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
-          </Link>
-        ) : (
-          <div className="space-y-2">
-            <Link href="/register" className="btn-primary w-full flex items-center justify-center gap-2 text-xs py-2">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
-              Sign Up Free
+        {!loading && user ? (
+          sidebarCollapsed ? (
+            <button
+              onClick={logout}
+              className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center mx-auto hover:bg-surface-3 transition-colors"
+              title="Sign Out"
+            >
+              <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+          ) : (
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 px-2 py-2 rounded-lg bg-surface-2/50">
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">
+                  {(user.name || user.email || 'U').charAt(0).toUpperCase()}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs text-white font-medium truncate">{user.name || 'User'}</p>
+                  <p className="text-[10px] text-gray-500 truncate">{user.email || (user.wallet_address ? user.wallet_address.slice(0, 10) + '...' : '')}</p>
+                </div>
+              </div>
+              <button
+                onClick={logout}
+                className="w-full flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg text-xs text-gray-400 hover:text-white hover:bg-surface-2 transition-colors"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sign Out
+              </button>
+            </div>
+          )
+        ) : !loading ? (
+          sidebarCollapsed ? (
+            <Link href="/register" className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center mx-auto hover:bg-blue-600 transition-colors" title="Sign Up">
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
             </Link>
-            <Link href="/login" className="block text-center text-xs text-gray-500 hover:text-white transition-colors">
-              Already have an account? <span className="text-blue-400">Sign in</span>
-            </Link>
-          </div>
-        )}
+          ) : (
+            <div className="space-y-2">
+              <Link href="/register" className="btn-primary w-full flex items-center justify-center gap-2 text-xs py-2">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+                Sign Up Free
+              </Link>
+              <Link href="/login" className="block text-center text-xs text-gray-500 hover:text-white transition-colors">
+                Already have an account? <span className="text-blue-400">Sign in</span>
+              </Link>
+            </div>
+          )
+        ) : null}
       </div>
     </aside>
   );

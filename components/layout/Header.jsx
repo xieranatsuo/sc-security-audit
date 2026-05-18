@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context';
 
 export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { user, loading, logout } = useAuth();
 
   return (
     <header className="h-16 bg-surface-1/80 backdrop-blur-xl border-b border-gray-600/10 sticky top-0 z-40 flex items-center justify-between px-6">
@@ -68,13 +70,33 @@ export function Header() {
         {/* Divider */}
         <div className="w-px h-6 bg-gray-600/30 mx-1" />
 
-        {/* Auth Buttons */}
-        <Link href="/login" className="px-3 py-1.5 rounded-lg text-xs text-gray-400 hover:text-white transition-colors">
-          Sign in
-        </Link>
-        <Link href="/register" className="btn-primary text-xs px-3 py-1.5">
-          Sign Up
-        </Link>
+        {/* Auth / User */}
+        {!loading && user ? (
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400">
+              {(user.name || user.email || 'U').charAt(0).toUpperCase()}
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-xs text-white font-medium leading-tight">{user.name || 'User'}</p>
+              <p className="text-[10px] text-gray-500 leading-tight">{user.email || user.wallet_address?.slice(0, 10) + '...'}</p>
+            </div>
+            <button
+              onClick={logout}
+              className="px-3 py-1.5 rounded-lg text-xs text-gray-400 hover:text-white hover:bg-surface-2 transition-colors"
+            >
+              Sign out
+            </button>
+          </div>
+        ) : !loading ? (
+          <>
+            <Link href="/login" className="px-3 py-1.5 rounded-lg text-xs text-gray-400 hover:text-white transition-colors">
+              Sign in
+            </Link>
+            <Link href="/register" className="btn-primary text-xs px-3 py-1.5">
+              Sign Up
+            </Link>
+          </>
+        ) : null}
       </div>
     </header>
   );

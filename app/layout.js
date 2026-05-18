@@ -1,4 +1,5 @@
 import './globals.css';
+import { AuthProvider } from '@/lib/auth-context';
 
 const SITE_URL = 'https://smart-contract-audit-platform.vercel.app';
 const SITE_NAME = 'Smart Contract Audit Platform';
@@ -82,7 +83,9 @@ export default function RootLayout({ children }) {
             </p>
           </div>
         </noscript>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
