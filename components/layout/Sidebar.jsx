@@ -176,24 +176,23 @@ export function Sidebar() {
         </div>
       )}
 
-      {/* User */}
+      {/* Auth / User */}
       <div className="px-3 py-3 border-t border-gray-600/10 shrink-0">
-        <div className={clsx('flex items-center', sidebarCollapsed ? 'justify-center' : 'gap-3')}>
-          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shrink-0">
-            <span className="text-white text-xs font-bold">G</span>
+        {sidebarCollapsed ? (
+          <Link href="/register" className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center mx-auto hover:bg-blue-600 transition-colors" title="Sign Up">
+            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+          </Link>
+        ) : (
+          <div className="space-y-2">
+            <Link href="/register" className="btn-primary w-full flex items-center justify-center gap-2 text-xs py-2">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+              Sign Up Free
+            </Link>
+            <Link href="/login" className="block text-center text-xs text-gray-500 hover:text-white transition-colors">
+              Already have an account? <span className="text-blue-400">Sign in</span>
+            </Link>
           </div>
-          {!sidebarCollapsed && (
-            <>
-              <div className="min-w-0 flex-1">
-                <p className="text-white text-sm font-medium truncate">Admin</p>
-                <p className="text-gray-500 text-[10px] truncate">Enterprise · Unlimited</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full" />
-              </div>
-            </>
-          )}
-        </div>
+        )}
       </div>
     </aside>
   );

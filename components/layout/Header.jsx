@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -67,15 +68,13 @@ export function Header() {
         {/* Divider */}
         <div className="w-px h-6 bg-gray-600/30 mx-1" />
 
-        {/* User Menu */}
-        <button className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-surface-2 transition-colors">
-          <div className="w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-            <span className="text-white text-[10px] font-bold">G</span>
-          </div>
-          <svg className="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+        {/* Auth Buttons */}
+        <Link href="/login" className="px-3 py-1.5 rounded-lg text-xs text-gray-400 hover:text-white transition-colors">
+          Sign in
+        </Link>
+        <Link href="/register" className="btn-primary text-xs px-3 py-1.5">
+          Sign Up
+        </Link>
       </div>
     </header>
   );
