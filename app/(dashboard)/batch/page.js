@@ -185,6 +185,36 @@ export default function BatchScannerPage() {
     setIsScanning(false);
   };
 
+  const retryFailed = async () => {
+    if (!results) return;
+    const failedAddrs = results.filter(r => r.status === 'failed').map(r => r.address);
+    if (failedAddrs.length === 0) return;
+    setIsScanning(true);
+    setProgress(0);
+    // Reset failed states to queued
+    const newStates = { ...contractStates };
+    failedAddrs.forEach(a => { newStates[a] = 'queued'; });
+    setContractStates(newStates);
+    // Re-scan only failed
+    const newResults = [...results.filter(r => r.status !== 'failed')];
+    for (let i = 0; i < failedAddrs.length; i++) {
+      const addr = failedAddrs[i];
+      setContractStates(prev => ({ ...prev, [addr]: 'scanning' }));
+      setProgress(Math.round(((i + 1) / failedAddrs.length) * 100));
+      await new Promise(r => setTimeout(r, 600 + (hashCode(addr) % 400)));
+      const scanResult = deterministicScan(addr, chain);
+      if (hashCode(addr) % 10 === 0) {
+        setContractStates(prev => ({ ...prev, [addr]: 'failed' }));
+        newResults.push({ address: addr, chain, contractName: 'Unknown', riskScore: 0, findings: [], scanTime: 0, status: 'failed' });
+      } else {
+        setContractStates(prev => ({ ...prev, [addr]: 'completed' }));
+        newResults.push({ ...scanResult, status: 'completed' });
+      }
+    }
+    setResults(newResults);
+    setIsScanning(false);
+  };
+
   const handleExport = (format) => {
     if (!results) return;
     let content, mime, ext;
@@ -405,6 +435,14 @@ export default function BatchScannerPage() {
                 <p className="text-[10px] text-gray-500">Avg Risk</p>
               </div>
             </div>
+          )}
+
+          {/* Retry Failed */}
+          {summary && summary.failed > 0 && !scanning && (
+            <button onClick={retryFailed} className="btn btn-secondary btn-sm text-xs flex items-center gap-1.5">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+              Retry {summary.failed} Failed Scan{summary.failed > 1 ? 's' : ''}
+            </button>
           )}
 
           {/* Results Table */}
