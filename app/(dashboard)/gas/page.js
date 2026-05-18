@@ -1,129 +1,92 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function GasTrackerPage() {
-  const [chain, setChain] = useState('ethereum');
+const CHAINS_GAS = [
+  { name: 'Ethereum', color: '#627EEA', baseFee: '12.4', priority: '1.5', usd: '$0.84', trend: 'up', icon: '⟠' },
+  { name: 'BNB Chain', color: '#F0B90B', baseFee: '3.0', priority: '1.0', usd: '$0.03', trend: 'down', icon: '◆' },
+  { name: 'Polygon', color: '#8247E5', baseFee: '30.2', priority: '30.0', usd: '$0.01', trend: 'stable', icon: '⬡' },
+  { name: 'Arbitrum', color: '#28A0F0', baseFee: '0.1', priority: '0.01', usd: '$0.001', trend: 'down', icon: '🔵' },
+  { name: 'Optimism', color: '#FF0420', baseFee: '0.01', priority: '0.001', usd: '$0.001', trend: 'stable', icon: '🔴' },
+  { name: 'Base', color: '#0052FF', baseFee: '0.01', priority: '0.001', usd: '$0.001', trend: 'stable', icon: '🔵' },
+];
 
-  const gasData = {
-    ethereum: { standard: 18, fast: 25, instant: 35, unit: 'Gwei', baseFee: 16.2, priorityFee: 1.5, history: [22,19,18,21,25,23,18,16,19,22,20,18] },
-    bsc: { standard: 3, fast: 5, instant: 7, unit: 'Gwei', baseFee: 2.8, priorityFee: 1.0, history: [4,3,3,5,4,3,3,4,5,3,3,4] },
-    polygon: { standard: 30, fast: 45, instant: 65, unit: 'Gwei', baseFee: 28.5, priorityFee: 2.0, history: [35,30,28,40,45,38,30,32,35,42,38,30] },
-    arbitrum: { standard: 0.1, fast: 0.2, instant: 0.3, unit: 'Gwei', baseFee: 0.08, priorityFee: 0.01, history: [0.1,0.1,0.2,0.1,0.2,0.1,0.1,0.2,0.1,0.1,0.2,0.1] },
-  };
+const trendIcons = { up: '↑', down: '↓', stable: '→' };
+const trendColors = { up: 'text-red-400', down: 'text-emerald-400', stable: 'text-gray-400' };
 
-  const data = gasData[chain];
-
-  const gasActions = [
-    { name: 'ETH Transfer', gas: 21000, cost: (21000 * data.standard * 1e-9 * 3200).toFixed(4) },
-    { name: 'ERC-20 Transfer', gas: 65000, cost: (65000 * data.standard * 1e-9 * 3200).toFixed(4) },
-    { name: 'Uniswap Swap', gas: 150000, cost: (150000 * data.standard * 1e-9 * 3200).toFixed(4) },
-    { name: 'NFT Mint', gas: 200000, cost: (200000 * data.standard * 1e-9 * 3200).toFixed(4) },
-    { name: 'Contract Deploy', gas: 1500000, cost: (1500000 * data.standard * 1e-9 * 3200).toFixed(4) },
-    { name: 'Flash Loan', gas: 350000, cost: (350000 * data.standard * 1e-9 * 3200).toFixed(4) },
-  ];
+export default function GasPage() {
+  const [selected, setSelected] = useState('ethereum');
 
   return (
     <div className="space-y-6">
+      <div className="flex items-center gap-2 text-xs text-gray-500">
+        <span className="text-gray-400">Dashboard</span>
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <span className="text-gray-400">Blockchain Tools</span>
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <span className="text-white">Gas Tracker</span>
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight">Gas Tracker</h1>
-          <p className="text-gray-500 text-sm mt-1">Real-time gas prices across supported chains</p>
+          <p className="text-gray-500 text-sm mt-1">Real-time gas prices across all supported networks</p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-          <span className="text-xs text-gray-400">Live · Updated 3s ago</span>
-        </div>
+        <span className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded font-semibold">DEMO DATA</span>
       </div>
 
-      {/* Chain Selector */}
-      <div className="grid grid-cols-4 gap-4">
-        {Object.entries(gasData).map(([key, val]) => (
-          <button key={key} onClick={() => setChain(key)} className={`card text-left transition-all ${chain === key ? 'border-blue-500/40 bg-blue-500/5' : 'hover:border-gray-600/30'}`}>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-300 capitalize font-medium">{key}</span>
-              {chain === key && <span className="w-2 h-2 bg-blue-400 rounded-full" />}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {CHAINS_GAS.map(chain => (
+          <div key={chain.name} className="card hover:border-gray-600/30 transition-colors cursor-pointer" onClick={() => setSelected(chain.name.toLowerCase())}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{chain.icon}</span>
+                <div>
+                  <p className="text-white font-semibold text-sm">{chain.name}</p>
+                  <p className="text-gray-500 text-[10px]">Last updated: just now</p>
+                </div>
+              </div>
+              <span className={`text-lg ${trendColors[chain.trend]}`}>{trendIcons[chain.trend]}</span>
             </div>
-            <p className="text-2xl font-bold text-white">{val.standard}</p>
-            <p className="text-xs text-gray-500">{val.unit}</p>
-          </button>
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <p className="text-[10px] text-gray-500 uppercase">Base Fee</p>
+                <p className="text-white font-bold text-lg">{chain.baseFee}</p>
+                <p className="text-gray-500 text-[10px]">Gwei</p>
+              </div>
+              <div>
+                <p className="text-[10px] text-gray-500 uppercase">Priority</p>
+                <p className="text-white font-bold text-lg">{chain.priority}</p>
+                <p className="text-gray-500 text-[10px]">Gwei</p>
+              </div>
+              <div>
+                <p className="text-[10px] text-gray-500 uppercase">Est. Cost</p>
+                <p className="text-white font-bold text-lg">{chain.usd}</p>
+                <p className="text-gray-500 text-[10px]">per tx</p>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Gas Price Tiers */}
-        <div className="col-span-2 space-y-4">
-          <div className="card">
-            <h3 className="text-sm font-semibold text-white mb-4">Gas Price Tiers — <span className="capitalize">{chain}</span></h3>
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-                <p className="text-xs text-emerald-400 font-semibold mb-1">🐢 Standard</p>
-                <p className="text-3xl font-bold text-white">{data.standard}</p>
-                <p className="text-xs text-gray-500 mt-1">~5 min confirmation</p>
-              </div>
-              <div className="p-4 rounded-lg bg-blue-500/5 border border-blue-500/20">
-                <p className="text-xs text-blue-400 font-semibold mb-1">⚡ Fast</p>
-                <p className="text-3xl font-bold text-white">{data.fast}</p>
-                <p className="text-xs text-gray-500 mt-1">~30 sec confirmation</p>
-              </div>
-              <div className="p-4 rounded-lg bg-orange-500/5 border border-orange-500/20">
-                <p className="text-xs text-orange-400 font-semibold mb-1">🚀 Instant</p>
-                <p className="text-3xl font-bold text-white">{data.instant}</p>
-                <p className="text-xs text-gray-500 mt-1">Next block</p>
+      {/* Gas Tips */}
+      <div className="card">
+        <h2 className="text-sm font-semibold text-white mb-4">Gas Optimization Tips</h2>
+        <div className="grid grid-cols-2 gap-4">
+          {[
+            { tip: 'Use L2 networks for lower fees', detail: 'Arbitrum, Optimism, and Base offer 10-100x lower gas costs than Ethereum mainnet.' },
+            { tip: 'Batch transactions when possible', detail: 'Use multicall to combine multiple operations into a single transaction.' },
+            { tip: 'Set appropriate gas limits', detail: 'Setting gas too high wastes ETH. Use gas estimation before submitting.' },
+            { tip: 'Monitor base fee trends', detail: 'Gas prices are lowest during weekends and off-peak hours (UTC 2-6 AM).' },
+          ].map((item, i) => (
+            <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-surface-2/50">
+              <svg className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              <div>
+                <p className="text-white text-sm font-medium">{item.tip}</p>
+                <p className="text-gray-500 text-xs mt-0.5">{item.detail}</p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-3 rounded-lg bg-surface-2 border border-gray-600/10">
-                <p className="text-xs text-gray-500">Base Fee</p>
-                <p className="text-lg font-bold text-white">{data.baseFee} <span className="text-xs text-gray-500">{data.unit}</span></p>
-              </div>
-              <div className="p-3 rounded-lg bg-surface-2 border border-gray-600/10">
-                <p className="text-xs text-gray-500">Priority Fee (Tip)</p>
-                <p className="text-lg font-bold text-white">{data.priorityFee} <span className="text-xs text-gray-500">{data.unit}</span></p>
-              </div>
-            </div>
-          </div>
-
-          {/* Gas History Chart */}
-          <div className="card">
-            <h3 className="text-sm font-semibold text-white mb-4">12-Hour Gas Price History</h3>
-            <div className="h-32 flex items-end gap-2 px-2">
-              {data.history.map((v, i) => {
-                const max = Math.max(...data.history);
-                const height = (v / max) * 100;
-                return (
-                  <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                    <span className="text-[10px] text-gray-500">{v}</span>
-                    <div className="w-full bg-blue-500/30 rounded-t" style={{ height: `${height}%` }}>
-                      <div className="w-full bg-blue-500 rounded-t" style={{ height: `${height * 0.7}%` }} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="flex justify-between px-2 mt-2 text-[10px] text-gray-500">
-              <span>12h ago</span><span>10h</span><span>8h</span><span>6h</span><span>4h</span><span>2h</span><span>Now</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Cost Estimator */}
-        <div className="card">
-          <h3 className="text-sm font-semibold text-white mb-4">Transaction Cost Estimator</h3>
-          <div className="space-y-3">
-            {gasActions.map((action) => (
-              <div key={action.name} className="flex items-center justify-between py-2 border-b border-gray-600/10 last:border-0">
-                <div>
-                  <p className="text-sm text-gray-300">{action.name}</p>
-                  <p className="text-[10px] text-gray-500">{action.gas.toLocaleString()} gas</p>
-                </div>
-                <p className="text-sm text-white font-mono">${action.cost}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 pt-4 border-t border-gray-600/10">
-            <p className="text-[10px] text-gray-500">* Based on ETH price $3,200</p>
-          </div>
+          ))}
         </div>
       </div>
     </div>
